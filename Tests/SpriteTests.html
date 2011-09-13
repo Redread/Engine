@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>SpriteTests</title>
+    <script src="../Client/my.common.min.js"></script>
+    <script>
+        require('../Shared/Redread.js');
+        require('../Client/Sprite.js');
+
+        scope.ready(function() {
+            Redread.initClient('game');
+
+            var sprite1 = Redread.sprite([
+                [0, 0, 20, 93, 5, 2]
+            ], 'resources/pong.png');
+
+            var sprite2 = Redread.sprite([
+                [50, 0, 20, 93, 5, 2]
+            ], 'resources/pong.png');
+
+            sprite1.draw(0, 10, 10);
+            sprite2.draw(0, 50, 10);
+        }, true);
+    </script>
+</head>
+<body>
+    <canvas id="game" style="border: 1px solid #ddd;"></canvas>
+</body>
+</html>
