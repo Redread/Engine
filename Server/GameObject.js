@@ -1,14 +1,12 @@
-var rd = require('../Shared/Redread.js').Redread;
-
-rd.gameObject = function(posX, posY, sprite) {
+var Redread = require('../Shared/Redread.js').Redread;
+Redread.gameObject = function(posX, posY) {
     var currentState = 0;
     var events = {};
     posX = posX || 0;
     posY = posY || 0;
-    sprite = sprite || null;
 
     return {
-        onObjectHit: function(obj, hit, func) {
+        onObjectHit: function(obj, func) {
             //TODO: Colission detection Here
             //Exeute func
         },
@@ -23,15 +21,10 @@ rd.gameObject = function(posX, posY, sprite) {
             return this;
         },
 
-        draw: function() {
-            sprite.draw(currentState, posX, posY);
-            return this;
-        },
-
         changeState: function(state) {
             currentState = state;
         }
     };
 };
 
-exports.Redread = rd;
+exports.Redread = Redread;

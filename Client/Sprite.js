@@ -16,6 +16,8 @@ Redread.sprite = function(states, imagePath) {
     
     return {
         currentFrame: 0,
+        
+        currentState: 0,
 
         /**
          * Drawing function
@@ -24,8 +26,8 @@ Redread.sprite = function(states, imagePath) {
          * @param posX What is the X position to be drawn on the canvas
          * @param posY What is the Y position to be drawn on the canvas
          */
-        draw: function(state, posX, posY) {
-            var drawingState = states[state];
+        draw: function(posX, posY) {
+            var drawingState = states[this.currentState];
             var spriteX = drawingState[0];
             var spriteY = drawingState[1];
             var spriteW = drawingState[2];
@@ -34,11 +36,13 @@ Redread.sprite = function(states, imagePath) {
             var stateQuantity = drawingState[5]
 
             //TODO: This should not be here, should be done before.
-            image.onload = function() {
-                ctx.drawImage(
-                    image, spriteX, spriteY, spriteW, spriteH, posX, posY, spriteW, spriteH
-                );
-            };
+            ctx.drawImage(
+                image, spriteX, spriteY, spriteW, spriteH, posX, posY, spriteW, spriteH
+            );
+        },
+
+        changeState: function(state) {
+            this.currentState = state;
         }
     }
 };

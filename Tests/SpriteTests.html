@@ -4,12 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
     <title>SpriteTests</title>
-    <script src="../Client/my.common.min.js"></script>
+    <script src="../Shared/Redread.js"></script>
+    <script src="../Client/GameObject.js"></script>
+    <script src="../Client/Sprite.js"></script>
     <script>
-        require('../Shared/Redread.js');
-        require('../Client/Sprite.js');
-
-        scope.ready(function() {
+        window.onload = function() {
             Redread.initClient('game');
 
             var sprite1 = Redread.sprite([
@@ -22,7 +21,7 @@
 
             sprite1.draw(0, 10, 10);
             sprite2.draw(0, 50, 10);
-        }, true);
+        };
     </script>
 </head>
 <body>

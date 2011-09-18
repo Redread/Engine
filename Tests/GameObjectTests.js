@@ -1,5 +1,5 @@
 var assert = require('assert');
-var rd = require('../Shared/GameObject.js').Redread;
+var rd = require('../Server/GameObject.js').Redread;
 
 var go = rd.gameObject();
 /**
