@@ -1,12 +1,16 @@
 var assert = require('assert');
 
 var TestCase = {
+    failed: 0,
+    passed: 0,
     test: function(description, fn){
         try{
             fn();
+            this.passed++;
             console.log('OK\t' + description);
         }
         catch(e){
+            this.failed++;
             console.error('FAIL\t' + description + '\n  ' + e);
         }
     },
@@ -21,6 +25,9 @@ var TestCase = {
     },
     assertTrue: function(expr){
         this.assertEqual(expr, true);
+    },
+    summary: function(){
+        console.info("========= " + this.failed + " failed, " + this.passed + " passed. " + (this.failed + this.passed) + " total =========");
     }
 };
 exports.TestCase = TestCase;
