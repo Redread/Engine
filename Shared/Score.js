@@ -1,8 +1,10 @@
-var rd = require('../Shared/Redread.js').Redread;
-
-rd.Score = function(){
+/**
+ * Score object 
+ * 
+ * 
+ */
+Redread.Score = function(){
     var value = 0;
-
     return {
         set: function(val){
             value = parseInt(val, 10);
@@ -14,7 +16,9 @@ rd.Score = function(){
         add: function(val){
             value += parseInt(val, 10);
             return this;
+        },
+        save: function(){
+            throw new Error("Unimplemented method");
         }
     };
 };
-exports.Redread = rd;
