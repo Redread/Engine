@@ -13,6 +13,9 @@ Redread.Score = function(){
         get: function(){
             return value;
         },
+        toString: function(){
+            return value.toString();
+        },
         add: function(val){
             value += parseInt(val, 10);
             return this;
