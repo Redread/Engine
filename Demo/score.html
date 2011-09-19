@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>SpriteTests</title>
+    <title>Score Demo</title>
     <script src="../Shared/Redread.js"></script>
     <script src="../Client/GameObject.js"></script>
     <script src="../Client/Drawing.js"></script>
@@ -11,23 +11,29 @@
         window.onload = function() {
             Redread.initClient('game');
 
-            Redread.start(function() {
-				Redread.Drawing.text("0", {stroke: 2, font: '40pt Poplar Std', x: 100, y: 60});
-				Redread.Drawing.text("SCORE 51209", {
-					stroke: '0',
-					color: '#CE2413',
-					font: '30pt PortagoITC TT'
-				});
-				
-				window.setTimeout(function(){
-					Redread.mainLoop = function(){};
-				}, 1);
-				
-            });
+			var score = new Redread.Score();
+			score.toString = function(){
+				return "Score: " + score.get();
+			}
+			var scoreLabel = Redread.gameObjectText(score.toString, {
+				stroke: '0',
+				color: 'green',
+				// font: '40pt Rosewood Std',
+				font: '40pt Arial',
+				position: 'center' // top right
+			});
+			Redread.addObjects(scoreLabel);
+
+            Redread.start(function() {});
+
+			// Increments score every second
+            window.setInterval(function(){
+				score.add(5);
+            }, 1000);
         };
     </script>
 </head>
 <body>
-    <canvas id="game" width=500 height=300 style="border: 1px solid #ddd;"></canvas>
+    <canvas id="game" width="800" height="500" style="border: 1px solid #ddd;"></canvas>
 </body>
 </html>
