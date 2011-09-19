@@ -1,7 +1,7 @@
 Redread.gameObject = function(sprite) {
     var currentState = 0;
-    sprite = sprite || null;
-
+    var sprite = sprite || null;
+    
     return {
         //Chaining purposes
         draw: function(posX, posY) {
