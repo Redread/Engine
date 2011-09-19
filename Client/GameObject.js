@@ -1,11 +1,24 @@
 Redread.gameObject = function(sprite) {
-    var currentState = 0;
-    var sprite = sprite || null;
-    
+    var currentState = 0,
+        sprite = sprite || null,
+        posX = 0,
+        posY = 0;
+        
     return {
         //Chaining purposes
-        draw: function(posX, posY) {
-            sprite.draw(posX, posY);
+        draw: function() {
+            sprite.draw(this.posX, this.posY);
+            return this;
+        }
+    };
+};
+
+Redread.gameObjectText = function(text, options) {
+    return {
+        //Chaining purposes
+        draw: function() {
+    // console.log(text, options);
+            Redread.Drawing.text(text, options);
             return this;
         }
     };

@@ -14,7 +14,6 @@ Redread.Drawing = {
         }
     },
     text: function(text, options){
-        // console.log(text, options);
         // If text is a function, executes it and grabs its result
         if (typeof text == 'function') {
             text = text();
