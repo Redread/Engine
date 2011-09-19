@@ -39,10 +39,7 @@
                 //TODO: Testing only
                 for (var i = 0; i < that.objects.length; i++) {
                     var obj = that.objects[i];
-                    obj.draw(
-                        obj.posX,
-                        obj.posY
-                    );
+                    obj.draw();
                 }
 
                 func.apply(that);
