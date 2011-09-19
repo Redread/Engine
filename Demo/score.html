@@ -11,22 +11,30 @@
         window.onload = function() {
             Redread.initClient('game');
 
+			
 			var score = new Redread.Score();
+			
+			// Overriding toString method of this object. Totally optional.
 			score.toString = function(){
 				return "Score: " + score.get();
 			}
+
+			// Creating label object with configurations regarding to shape, color and position
 			var scoreLabel = Redread.gameObjectText(score.toString, {
 				stroke: '0',
 				color: 'green',
 				// font: '40pt Rosewood Std',
 				font: '40pt Arial',
-				position: 'center' // top right
+				position: 'center', // top right
 			});
+			
+			// Adding objects to the main list of game objects
 			Redread.addObjects(scoreLabel);
 
+			// Bootstraps the Loop
             Redread.start(function() {});
 
-			// Increments score every second
+			// Increments score every second. Just for testing
             window.setInterval(function(){
 				score.add(5);
             }, 1000);

@@ -73,10 +73,8 @@ Redread.Drawing = {
             throw new Error('Bad position "' + pos + '"');
         }
 
-        var 
-            ctx = Redread.drawContext,
+        var ctx = Redread.drawContext,
             pos = options.position,
-            words = pos.split(' '),
             
             txtWidth = ctx.measureText(text).width,
             txtHeight = parseInt(options.font, 10),
@@ -87,6 +85,12 @@ Redread.Drawing = {
             x = 0,
             y = txtHeight;
             
+        // Todo: Fix double 'center'.
+        if (pos == 'center center') {
+            pos = 'center';
+        };
+        words = pos.split(' ');
+
         for(var i in words){
             switch(words[i]){
                 case 'top':
