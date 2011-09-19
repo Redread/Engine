@@ -17,7 +17,6 @@ Redread.gameObjectText = function(text, options) {
     return {
         //Chaining purposes
         draw: function() {
-    // console.log(text, options);
             Redread.Drawing.text(text, options);
             return this;
         }
