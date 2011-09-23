@@ -1,10 +1,12 @@
 (function(exports) {
     var Redread = {
+        wsPort: 9090,
+
         canvasEl: null,
 
         drawContext: null,
 
-        objects: [],
+        objects: {},
 
         initClient: function(canvasId) {
             this.canvasEl = document.getElementById(canvasId);
@@ -12,43 +14,44 @@
         },
 
         start: function(func) {
-            var animate = window.requestAnimationFrame || 
-                          window.webkitRequestAnimationFrame || 
-                          window.mozRequestAnimationFrame    || 
-                          window.oRequestAnimationFrame      || 
-                          window.msRequestAnimationFrame     || 
-                          function(callback) {
-                              window.setTimeout(callback, 1000 / 60);
-                          };
-
-            this.mainLoop(animate, func);
-        },
-
-        mainLoop: function(frameReq, func) {
+            var socket = io.connect('http://localhost:' + this.wsPort);
             var that = this;
-            frameReq(function() {
-                //Clear for redraw
-                that.drawContext.clearRect(
-                    0, 
-                    0, 
-                    that.canvasEl.width, 
-                    that.canvasEl.height
-                );
-
-                //Get data from server and update objects
-                //TODO: Testing only
-                for (var i = 0; i < that.objects.length; i++) {
-                    var obj = that.objects[i];
-                    obj.draw();
-                }
-
-                func.apply(that);
-                that.mainLoop(frameReq, func);
+            socket.on('connect', function() {
+                socket.on('message', function(objects) {
+                    var objects = JSON.parse(objects);
+                    for (var id in objects) {
+                        that.objects[id].posX = objects[id].posX;
+                        that.objects[id].posY = objects[id].posY;
+                    }
+                    that.mainLoop(func);
+                });
             });
         },
 
+        mainLoop: function(func) {
+            //Clear for redraw
+            this.drawContext.clearRect(
+                0, 
+                0, 
+                this.canvasEl.width, 
+                this.canvasEl.height
+            );
+
+            for (var id in this.objects) {
+                var obj = this.objects[id];
+                obj.draw();
+            }
+
+            if (func !== undefined) {
+                func.apply(this);
+            }
+        },
+
         addObjects: function() {
-            this.objects = Array.prototype.slice.call(arguments); //toArray
+            var objects = Array.prototype.slice.call(arguments); //toArray
+            for (var i = 0; i < objects.length; i++) {
+                this.objects[objects[i].id] = objects[i];
+            };
         }
     };
 

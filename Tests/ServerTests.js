@@ -12,4 +12,4 @@ server.onDisconnect = function() {
     console.log('Disconnected');
 };
 
-server.init(8080);
+server.init();

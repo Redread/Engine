@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>SpriteTests</title>
+    <script src="http://localhost:9090/socket.io/socket.io.js"></script>
+    <script src="../../Shared/Redread.js"></script>
+    <script src="../../Client/GameObject.js"></script>
+    <script src="../../Client/Sprite.js"></script>
+    <script>
+        window.onload = function() {
+            Redread.initClient('game');
+
+            var sprite1 = Redread.sprite([
+                [0, 0, 20, 93, 5, 2]
+            ], 'resources/pong.png');
+
+            var sprite2 = Redread.sprite([
+                [50, 0, 20, 93, 5, 2]
+            ], 'resources/pong.png');
+
+            var leftPad = Redread.gameObject(sprite1, 'lefty');
+            var rightPad = Redread.gameObject(sprite2, 'righty');
+
+            Redread.addObjects(leftPad, rightPad);
+
+            var up = false;
+            Redread.start(function() {});
+        };
+    </script>
+</head>
+<body>
+    <canvas id="game" width=500 height=300 style="border: 1px solid #ddd;"></canvas>
+</body>
+</html>

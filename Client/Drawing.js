@@ -123,6 +123,3 @@ Redread.Drawing = {
         return {x: x, y: y};
     }
 };
-
-
-
