@@ -19,24 +19,40 @@
         },
 
         start: function(func) {
-            this.socket = io.connect('http://localhost:' + this.wsPort);
+            this.socket = io.connect('http://' + document.location.hostname + ':' + this.wsPort);
             var that = this;
             this.socket.on('connect', function() {
-                that.socket.on('message', function(objects) {
-                    objects = JSON.parse(objects);
-                    for (var id in objects) {
-                        that.objects[id].posX = objects[id].posX;
-                        that.objects[id].posY = objects[id].posY;
+                that.socket.on('message', function(message) {
+                    message = JSON.parse(message);
+                    switch (message.type) {
+                        case "gameUpdate":
+                            var objects = message.objects;
+                            for (var id in objects) {
+                                that.objects[id].posX = objects[id].posX;
+                                that.objects[id].posY = objects[id].posY;
+                            }        
+                            break;
+                        case "gameState":
+                            if (message.name === "waiting") {
+                                /*var message = Redread.gameObjectText("Waiting for Players.", {
+                                    position: 'center'
+                                });
+                                that.addObjects(message);*/
+                                console.log("Waiting for players");
+                            }
+                            break;
                     }
-                    that.mainLoop(func);
+                    that.mainLoop(func, message);
                 });
             });
         },
+        
         send:function(obj){
             console.log(obj);
             this.socket.send(obj);
         },
-        mainLoop: function(func) {
+        
+        mainLoop: function(func, message) {
             //Clear for redraw
             this.drawContext.clearRect(
                 0, 
@@ -51,7 +67,7 @@
             }
 
             if (func !== undefined) {
-                func.apply(this);
+                func.apply(this, [message]);
             }
         },
 
