@@ -7,6 +7,11 @@
         drawContext: null,
 
         objects: {},
+        
+        debug: false,
+        log: function(){
+            this.debug && console.log.call(arguments);
+        },
 
         initClient: function(canvasId) {
             this.canvasEl = document.getElementById(canvasId);
@@ -18,7 +23,7 @@
             var that = this;
             this.socket.on('connect', function() {
                 that.socket.on('message', function(objects) {
-                    var objects = JSON.parse(objects);
+                    objects = JSON.parse(objects);
                     for (var id in objects) {
                         that.objects[id].posX = objects[id].posX;
                         that.objects[id].posY = objects[id].posY;
@@ -28,6 +33,7 @@
             });
         },
         send:function(obj){
+            console.log(obj);
             this.socket.send(obj);
         },
         mainLoop: function(func) {
