@@ -31,16 +31,10 @@ Redread.Drawing = {
         };
         
         var ctx = Redread.drawContext;
-        var oldctx = {
-            fillStyle: ctx.fillStyle,
-            strokeStyle: ctx.strokeStyle,
-            lineWidth: ctx.lineWidth,
-            font: ctx.font,
-            textBaseline: ctx.textBaseline
-        };
-
+        ctx.save();
         ctx.fillStyle = options.color;
         ctx.font = options.font;
+
         // Ensures that lowercase p or q doesn't stay out of the box
         ctx.textBaseline = options.textBaseline;
         
@@ -57,7 +51,7 @@ Redread.Drawing = {
         }
         
         // Returning old values to context
-        this.oldContext2Context(oldctx, ctx);
+        ctx.restore();
     },
     
     /**
