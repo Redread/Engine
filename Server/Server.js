@@ -19,11 +19,11 @@ rd.server = function() {
                     var transport = JSON.parse(transport);
 
                     //Getting the event sent
-                    if (transport.event.type == 'keypressed') {
-                        for (var i = 0; i < that.objects.length; i++) {
-                            var obj = that.objects[i];
-                            obj.triggerEvent(transport.event.name);
-                        };
+                    if (transport.type == 'keypressed') {
+                        for (var id in that.objects) {
+                            var obj = that.objects[id];
+                            obj.triggerEvent(transport.name);
+                        }
                     }
 
                     that.onMessage();
@@ -34,7 +34,7 @@ rd.server = function() {
                 //Main server loop
                 setInterval(function() {
                     socket.send(JSON.stringify(that.objects));
-                }, 1000);
+                }, 1000 / 60);
             });
         },
 
