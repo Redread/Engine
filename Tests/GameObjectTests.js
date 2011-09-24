@@ -10,7 +10,7 @@ assert.equal('object', typeof go);
 /**
  * Key registration
  */
-go.registerKeyEvent('w', function() {
+go.registerEvent('w', function() {
     console.log('The key w was pressed');
 })
 

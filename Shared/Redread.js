@@ -8,7 +8,7 @@
 
         objects: {},
         
-        debug: false,
+        debug: true,
         log: function(){
             this.debug && console.log.call(arguments);
         },

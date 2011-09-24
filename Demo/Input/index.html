@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Score Demo</title>
-    <script src="http://10.1.1.5:9090/socket.io/socket.io.js"></script>
+    <title>Input Demo</title>
+    <script src="http://localhost:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
-    <script src="../../Shared/Utils.js"></script>
     <script src="../../Client/Input.js"></script>
     <script src="../../Client/GameObject.js"></script>
     <script src="../../Client/Drawing.js"></script>
@@ -19,13 +18,17 @@
                 [140, 0, 139, 139, 0, 2]
             ], 'boo.png?1');
 
-			var boo = Redread.gameObject(booSprite, 'boo');
+            var boo = Redread.gameObject(booSprite, 'boo');
 
             // Adding objects to the main list of game objects
             Redread.addObjects(boo);
 
-			// Binds keyboard events on object
-			Redread.Input.bindDirectional('ARROWS,WASD');
+            // Binds keyboard events on object
+            Redread.Input.bindDirectional('ARROWS,WASD');
+
+            var keyObject = {};
+            keyObject[KEYS.SPACE] = 'boo!';
+            Redread.Input.bindKeys(keyObject);
 
             // Bootstraps the Loop
             Redread.start(function() {});
