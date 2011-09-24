@@ -31,20 +31,14 @@ Redread.Input = {
 	bindDirectional: function(keySet, fn){
 	    if(isWasd(keySet)){
 	        window.onkeydown = function(evt){
-	            var eventString;
-	            
-	            switch(evt.which){
-                    case Redread.KEYS.W:
-                        eventString = 'up';
-                    case Redread.KEYS.A:
-                        eventString = 'left';
-                    case Redread.KEYS.S:
-                        eventString = 'down';
-                    case Redread.KEYS.D:
-                        eventString = 'right';
-	            }
+	            var switchObj = {};
+	            switchObj[Redread.KEYS.W]: 'up';
+                switchObj[Redread.KEYS.A]: 'left';
+                switchObj[Redread.KEYS.S]: 'down';
+                switchObj[Redread.KEYS.D]: 'right';
+	            var eventString = Redread.Utils.select(evt.which, switchObj);
 	            if (eventString) {
-	                Redread.send({type: eventString});
+	                Redread.send({type: 'keypress', name: eventString});
 	            }
 	        };
 	    }
