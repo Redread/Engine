@@ -18,42 +18,52 @@ Redread.KEYS = {
 };
 
 Redread.Input = {
-	isWasd: function(str){
-		return (/WASD/).test(str);
+    keyList: {},
+	addWasd: function(str){
+		if((/WASD/).test(str)){
+            this.keyList[Redread.KEYS.W] = 'up';
+            this.keyList[Redread.KEYS.A] = 'left';
+            this.keyList[Redread.KEYS.S] = 'down';
+            this.keyList[Redread.KEYS.D] = 'right';
+		}
 	},
-	isArrows: function(str){
-		return (/ARROWS/).test(str);
+	addArrows: function(str){
+		if((/ARROWS/).test(str)){
+            this.keyList[Redread.KEYS.UP] = 'up';
+            this.keyList[Redread.KEYS.LEFT] = 'left';
+            this.keyList[Redread.KEYS.DOWN] = 'down';
+            this.keyList[Redread.KEYS.RIGHT] = 'right';
+		}
 	},
 	isAccelerometer: function(str){
 		return (/ACCEL/).test(str);
 	},
     send: function(eventString){
-        console.info("send ",eventString);
         if (eventString) {
+            console.info("send ",eventString);
             Redread.send(JSON.stringify({type: 'keypressed', name: eventString}));
         }
     },
 	bindDirectional: function(keySet, fn){
+	    this.addWasd(keySet);
+	    this.addArrows(keySet);
+	    this.delegate();
+	},
+	bindKeys: function(obj){
+	    for(var i in obj){
+	        this.keyList[i] = obj[i];
+	    }
+	},
+	delegate: function(){
 	    var that = this;
-	    if(that.isWasd(keySet) || that.isArrows(keySet)){
-            var funKeyboard = function(evt) {
-                var switchObj = {};
-                if(that.isWasd(keySet)){
-                    switchObj[Redread.KEYS.W] = 'up';
-                    switchObj[Redread.KEYS.A] = 'left';
-                    switchObj[Redread.KEYS.S] = 'down';
-                    switchObj[Redread.KEYS.D] = 'right';
-                }
-                if(that.isArrows(keySet)){
-                    switchObj[Redread.KEYS.UP] = 'up';
-                    switchObj[Redread.KEYS.LEFT] = 'left';
-                    switchObj[Redread.KEYS.DOWN] = 'down';
-                    switchObj[Redread.KEYS.RIGHT] = 'right';
-                }
-                var eventString = Redread.Utils.select(evt.which, switchObj) || null;
-                that.send(eventString);
+	    if(this.keyList){
+            console.log(that.keyList);
+	        window.onkeydown = function(evt) {
+                var eventString = that.keyList[evt.which] || null;
+                if (eventString) {
+                    that.send(eventString);
+                };
             };
-	        window.onkeydown = funKeyboard;
 	    }
 	}
 };
