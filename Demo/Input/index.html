@@ -6,6 +6,7 @@
     <script src="http://10.1.1.5:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Shared/Utils.js"></script>
+    <script src="../../Client/Input.js"></script>
     <script src="../../Client/GameObject.js"></script>
     <script src="../../Client/Drawing.js"></script>
     <script src="../../Client/Sprite.js"></script>
@@ -16,12 +17,15 @@
             var booSprite = Redread.sprite([
                 [0, 0, 139, 139, 0, 2],
                 [140, 0, 139, 139, 0, 2]
-            ], 'boo.png');
+            ], 'boo.png?1');
 
 			var boo = Redread.gameObject(booSprite, 'boo');
 
             // Adding objects to the main list of game objects
             Redread.addObjects(boo);
+
+			// Binds keyboard events on object
+			Redread.Input.bindDirectional('ARROWS,WASD');
 
             // Bootstraps the Loop
             Redread.start(function() {});

@@ -31,7 +31,7 @@ rd.server = function() {
                 }
                 
                 socket.on('message', function(transport) {
-                    var transport = JSON.parse(transport);
+                    transport = JSON.parse(transport);
 
                     //Getting the event sent
                     if (transport.type === 'keypressed') {
@@ -49,7 +49,7 @@ rd.server = function() {
 
                 //Main server loop
                 setInterval(function() {
-                    if (that.playerCounter === that.configs.players) {                        
+                    if (that.playerCounter === that.configs.players) {
                         socket.broadcast.send(JSON.stringify({
                             type: "gameUpdate",
                             objects: that.objects

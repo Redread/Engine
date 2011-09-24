@@ -1,6 +1,6 @@
 /**
  *	
-*/
+ */
 Redread = Redread || {};
 
 Redread.KEYS = {
@@ -28,23 +28,23 @@ Redread.Input = {
 		return (/ACCEL/).test(str);
 	},
     send: function(eventString){
-        console.info(eventString);
+        console.info("send ",eventString);
         if (eventString) {
-            Redread.send({type: 'keypress', name: eventString});
+            Redread.send(JSON.stringify({type: 'keypressed', name: eventString}));
         }
     },
 	bindDirectional: function(keySet, fn){
 	    var that = this;
-	    if(isWasd(keySet) || isArrows(keySet)){
+	    if(that.isWasd(keySet) || that.isArrows(keySet)){
             var funKeyboard = function(evt) {
                 var switchObj = {};
-                if(isWasd(keySet)){
+                if(that.isWasd(keySet)){
                     switchObj[Redread.KEYS.W] = 'up';
                     switchObj[Redread.KEYS.A] = 'left';
                     switchObj[Redread.KEYS.S] = 'down';
                     switchObj[Redread.KEYS.D] = 'right';
                 }
-                if(isArrows(keySet)){
+                if(that.isArrows(keySet)){
                     switchObj[Redread.KEYS.UP] = 'up';
                     switchObj[Redread.KEYS.LEFT] = 'left';
                     switchObj[Redread.KEYS.DOWN] = 'down';
@@ -53,10 +53,10 @@ Redread.Input = {
                 var eventString = Redread.Utils.select(evt.which, switchObj) || null;
                 that.send(eventString);
             };
-	        window.onkeydown = function(evt){};
+	        window.onkeydown = funKeyboard;
 	    }
 	}
 };
 
-Redread.Input.bindDirectional('ARROWS,WASD,ACCEL');
-Redread.Input.bind(KEYS.SPACE);
+// Redread.Input.bindDirectional('ARROWS,WASD');
+// Redread.Input.bind(KEYS.SPACE);
