@@ -1,5 +1,4 @@
 var rd = require('../Server/Server.js').Redread;
-
 /**
  * Test the server construction
  */

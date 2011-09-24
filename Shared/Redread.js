@@ -14,23 +14,47 @@
         },
 
         start: function(func) {
-            this.socket = io.connect('http://localhost:' + this.wsPort);
+            this.socket = io.connect('http://' + document.location.hostname + ':' + this.wsPort);
             var that = this;
             this.socket.on('connect', function() {
-                that.socket.on('message', function(objects) {
-                    var objects = JSON.parse(objects);
-                    for (var id in objects) {
-                        that.objects[id].posX = objects[id].posX;
-                        that.objects[id].posY = objects[id].posY;
+                window.onkeydown = function(ev) {
+                    if (ev.keyCode == 87) {
+                        that.socket.send(JSON.stringify({type:"keypressed", name:"up"}));
                     }
-                    that.mainLoop(func);
+                    if (ev.keyCode == 83) {
+                        that.socket.send(JSON.stringify({type:"keypressed", name:"down"}));
+                    }
+                }
+                that.socket.on('message', function(message) {
+                    var message = JSON.parse(message);
+                    switch (message.type) {
+                        case "gameUpdate":
+                            var objects = message.objects;
+                            for (var id in objects) {
+                                that.objects[id].posX = objects[id].posX;
+                                that.objects[id].posY = objects[id].posY;
+                            }        
+                            break;
+                        case "gameState":
+                            if (message.name === "waiting") {
+                                /*var message = Redread.gameObjectText("Waiting for Players.", {
+                                    position: 'center'
+                                });
+                                that.addObjects(message);*/
+                                console.log("Waiting for players");
+                            }
+                            break;
+                    }
+                    that.mainLoop(func, message);
                 });
             });
         },
+        
         send:function(obj){
             this.socket.send(obj);
         },
-        mainLoop: function(func) {
+        
+        mainLoop: function(func, message) {
             //Clear for redraw
             this.drawContext.clearRect(
                 0, 
@@ -45,7 +69,7 @@
             }
 
             if (func !== undefined) {
-                func.apply(this);
+                func.apply(this, [message]);
             }
         },
 
