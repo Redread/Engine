@@ -1,14 +1,13 @@
 Redread.gameObject = function(sprite, id) {
-    var currentState = 0,
-        sprite = sprite || null,
-        posX = 0,
-        posY = 0;
-        
     return {
+        currentState: 0,
+        sprite: sprite || null,
+        posX: 0,
+        posY: 0,
         id: id,
         //Chaining purposes
         draw: function() {
-            sprite.draw(this.posX, this.posY);
+            this.sprite.draw(this.posX, this.posY, this.currentState);
             return this;
         }
     };
