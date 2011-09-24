@@ -15,7 +15,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
             //Exeute func
         },
         
-        registerKeyEvent: function(event, func) {
+        registerEvent: function(event, func) {
             events[event] = func;
             return this;
         },

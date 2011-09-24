@@ -45,7 +45,18 @@ rd.server = function() {
                     that.onMessage();
                 });
 
-                socket.on('disconnect', that.onDisconnect);
+                socket.on('disconnect', function() {
+                    var disconPlayer = socket.id;
+                    
+                    for(i in that.objects){
+                        if (that.objects[i].player == disconPlayer){
+                            that.objects[i].player = 0;
+                            that.playerCounter--;
+                            break;
+                        }
+                    }
+                    that.onDisconnect();
+                });
 
                 //Main server loop
                 setInterval(function() {
