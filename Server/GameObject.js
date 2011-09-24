@@ -7,6 +7,8 @@ Redread.gameObject = function(posX, posY, id) {
         id: id,
         posX: posX || 0,
         posY: posY || 0,
+        isPlayer: false,
+        player: 0,
 
         onObjectHit: function(obj, func) {
             //TODO: Colission detection Here
