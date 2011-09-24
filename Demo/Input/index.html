@@ -13,13 +13,12 @@
         window.onload = function() {
             Redread.initClient('game');
 
-            var boo = Redread.sprite([
-                [0, 0, 142, 139, 0, 2],
-                [143, 0, 142, 139, 0, 2]
+            var booSprite = Redread.sprite([
+                [0, 0, 139, 139, 0, 2],
+                [140, 0, 139, 139, 0, 2]
             ], 'boo.png');
 
-            boo.posX = 200;
-            boo.posY = 200;
+			var boo = Redread.gameObject(booSprite, 'boo');
 
             // Adding objects to the main list of game objects
             Redread.addObjects(boo);

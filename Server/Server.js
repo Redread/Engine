@@ -10,9 +10,11 @@ rd.server = function() {
 
         init: function(port) {
             port = rd.wsPort || port;
+
             var that = this;
 
             var io = require("socket.io").listen(port);
+            io.set('log level', 2);
             io.sockets.on('connection', function(socket) {
                 //Assigns a player number to player object
                 for (var id in that.objects) {
