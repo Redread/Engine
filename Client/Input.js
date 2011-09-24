@@ -27,12 +27,32 @@ Redread.Input = {
 	isAccelerometer: function(str){
 		return /ACCEL/.test(str);
 	},
-	bind: function(key, fn){}
+    
+	bindDirectional: function(keySet, fn){
+	    if(isWasd(keySet)){
+	        window.onkeydown = function(evt){
+	            var eventString;
+	            
+	            switch(evt.which){
+                    case Redread.KEYS.W:
+                        eventString = 'up';
+                    case Redread.KEYS.A:
+                        eventString = 'left';
+                    case Redread.KEYS.S:
+                        eventString = 'down';
+                    case Redread.KEYS.D:
+                        eventString = 'right';
+	            }
+	            if (eventString) {
+	                Redread.send({type: eventString});
+	            }
+	        };
+	    }
+	}
 };
 
 
-Redread.Input.bind('ARROWS', function(evt){
-	var speed = 20;
+Redread.Input.bindDirectional('ARROWS,WASD,ACCEL', function(evt){
 	if (evt.left) {};
 	console.log(evt);
 });
