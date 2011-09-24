@@ -14,10 +14,10 @@
         },
 
         start: function(func) {
-            var socket = io.connect('http://localhost:' + this.wsPort);
+            this.socket = io.connect('http://localhost:' + this.wsPort);
             var that = this;
-            socket.on('connect', function() {
-                socket.on('message', function(objects) {
+            this.socket.on('connect', function() {
+                that.socket.on('message', function(objects) {
                     var objects = JSON.parse(objects);
                     for (var id in objects) {
                         that.objects[id].posX = objects[id].posX;
@@ -27,7 +27,9 @@
                 });
             });
         },
-
+        send:function(obj){
+            this.socket.send(obj);
+        },
         mainLoop: function(func) {
             //Clear for redraw
             this.drawContext.clearRect(
