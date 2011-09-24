@@ -12,6 +12,7 @@ rd.server = function() {
             port = rd.wsPort || port;
 
             var io = require("socket.io").listen(port);
+            io.set('log level', 2);
             var that = this;
 
             io.sockets.on('connection', function(socket) {
