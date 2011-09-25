@@ -8,6 +8,7 @@
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Client/GameObject.js"></script>
     <script src="../../Client/Sprite.js"></script>
+    <script src="../../Client/Input.js"></script>
     <script>
         window.onload = function() {
             Redread.initClient('game');
@@ -22,6 +23,8 @@
 
             var leftPad = Redread.gameObject(sprite1, 'lefty');
             var rightPad = Redread.gameObject(sprite2, 'righty');
+
+			Redread.Input.bindDirectional("WASD");
 
             Redread.addObjects(leftPad, rightPad);
             Redread.start(function() {});
