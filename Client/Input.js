@@ -63,6 +63,7 @@ Redread.Input = {
                 var eventString = that.keyList[evt.which] || null;
                 if (eventString) {
                     that.send(eventString);
+                    evt.preventDefault();
                 };
             };
         }
