@@ -13,8 +13,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         events: {},
 
         onObjectHit: function(obj, func) {
-            //TODO: Colission detection Here
-            //Exeute func
+            //TODO: Colision detection Here
         },
         
         registerEvent: function(event, func) {
@@ -27,7 +26,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
                 this.events[event].apply(this);
             }
             else {
-                throw new Error("Event " + event + " not defined")
+                console.warn("Error: event " + event + " not defined.");
             }
             return this;
         },
