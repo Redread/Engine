@@ -14,7 +14,17 @@ Redread.KEYS = {
     A: 65,
     S: 83,
     D: 68,
-    P: 80
+    P: 80,
+    ZERO: 48,
+    ONE: 49,
+    TWO: 50,
+    THREE: 51,
+    FOUR: 52,
+    FIVE: 53,
+    SIX: 54,
+    SEVEN: 55,
+    EIGHT: 56,
+    NINE: 57
 };
 
 Redread.Input = {
