@@ -1,14 +1,16 @@
+/**
+ * Server.GameObject
+ */
 var Redread = require('../Shared/Redread.js').Redread;
 Redread.gameObject = function(posX, posY, id, isPlayer) {
-    var currentState = 0;
-    var events = {};
-
     return {
         id: id,
         posX: posX || 0,
         posY: posY || 0,
         isPlayer: false || isPlayer,
         player: 0,
+        currentState: 0,
+        events: {},
 
         onObjectHit: function(obj, func) {
             //TODO: Colission detection Here
@@ -16,17 +18,17 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         },
         
         registerEvent: function(event, func) {
-            events[event] = func;
+            this.events[event] = func;
             return this;
         },
 
         triggerEvent: function(event) {
-            events[event].apply(this);
+            this.events[event].apply(this);
             return this;
         },
 
         changeState: function(state) {
-            currentState = state;
+            this.currentState = state;
         }
     };
 };
