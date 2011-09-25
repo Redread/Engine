@@ -23,7 +23,12 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         },
 
         triggerEvent: function(event) {
-            this.events[event].apply(this);
+            if (this.events[event] !== undefined) {
+                this.events[event].apply(this);
+            }
+            else {
+                throw new Error("Event " + event + " not defined")
+            }
             return this;
         },
 
