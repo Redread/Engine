@@ -14,8 +14,10 @@
             Redread.initClient('game');
 
             var booSprite = Redread.sprite([
-                [0, 0, 139, 139, 0, 2],
-                [140, 0, 139, 139, 0, 2]
+                [0, 0, 139, 139, 0, 1],
+                [139, 0, 145, 139, 0, 1]
+                [284, 0, 139, 139, 0, 1],
+                [424, 0, 145, 139, 0, 1]
             ], 'boo.png?1');
 
             var boo = Redread.gameObject(booSprite, 'boo');
@@ -37,6 +39,6 @@
     </script>
 </head>
 <body>
-    <canvas id="game" width="800" height="500" style="border: 1px solid #ddd;"></canvas>
+    <canvas id="game" width="1500" height="1000" style="border: 1px solid #ddd;"></canvas>
 </body>
 </html>
