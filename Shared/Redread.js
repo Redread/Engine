@@ -30,6 +30,9 @@
                             for (var id in objects) {
                                 that.objects[id].posX = objects[id].posX;
                                 that.objects[id].posY = objects[id].posY;
+                                if(objects[id].currentState !== undefined){
+                                    that.objects[id].currentState = objects[id].currentState;
+                                }
                             }        
                             break;
                         case "gameState":
