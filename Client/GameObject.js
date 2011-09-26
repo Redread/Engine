@@ -1,4 +1,4 @@
-var Redread  = {};
+var Redread = Redread || {};
 Redread.gameObject = function(sprite, id) {
     // Name of the object
     this.id = id,

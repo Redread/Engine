@@ -7,6 +7,7 @@
         drawContext: null,
 
         objects: [],
+
         localObjects: [],
         
         debug: true,
@@ -15,6 +16,7 @@
             this.debug && console.log.call(arguments);
         },
 
+        //ClientSide initialization
         initClient: function(canvasId) {
             this.canvasEl = document.getElementById(canvasId);
             this.drawContext = this.canvasEl.getContext('2d');
@@ -25,16 +27,13 @@
             var that = this;
 
             this.socket.on('connect', function() {
-                
                 // When client receives a message from server
                 that.socket.on('message', function(message) {
                     message = JSON.parse(message);
                     switch (message.type) {
-                        
                         case "gameUpdate":
                             var objects = message.objects;
 
-                                // console.log(objects);
                             // Iterating over each object
                             for (var id in objects) {
                                 // Passing every property from the remote objects to the local objects
@@ -43,7 +42,6 @@
                                         that.objects[id][i] = objects[id][i];
                                     }
                                 };
-
                             }        
                             break;
                             
@@ -113,6 +111,7 @@
             };
         },
 
+        //Wall collision detection
         checkWallHit: function(obj) {
             var width = obj.sprite.states[obj.currentState][2];
             var height = obj.sprite.states[obj.currentState][3];
@@ -128,6 +127,7 @@
                 left: false,
                 right: false
             };
+
             //used for when the step goes after the wall
             var stepBack = {
                 top: 0,
@@ -164,12 +164,15 @@
             }));
         },
 
+        //Adding objects to game
         addObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             for (var i in objects) {
                 this.objects[objects[i].id] = objects[i];
             };
         },
+
+        //Adding interface objects
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             for (var i in objects.length) {

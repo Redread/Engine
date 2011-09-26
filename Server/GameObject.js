@@ -15,7 +15,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     // Defines if current object is a player
     this.isPlayer = isPlayer || false;
 
-    // Which walls does the object has to hit on
+    // Which walls the object currently hits
     this.wallsHit = {};
 
     // Player's connection ID (socket.id)
@@ -24,7 +24,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     // Sprite's state
     this.currentState = 0;
 
-    this.// -1: left, 0 = stoped; 1: right
+    // -1: left, 0: stoped; 1: right
     this.direction = 0; 
 
     // Bound events
@@ -34,7 +34,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     this.data = {};
 
     this.onTick = undefined;
-    this.hitList = {};
+    this.hitList = {}
 
     this.onObjectHit = function(obj, func) {
         this.hitList[obj.id] = func;
@@ -66,8 +66,9 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
             this.events[event].apply(this);
         }
         else {
-            this.        console.warn("Error = event " + event + " not defined.");;
+            this.console.warn("Error = event " + event + " not defined.");;
         }
+
         return this;
     },
 
