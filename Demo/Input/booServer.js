@@ -4,7 +4,7 @@ var server = require('../../Server/Server.js').Redread.server();
 var boo = Redread.gameObject(10, 10, 'boo', true);
 
 function isBoo (state) {
-    return (state % 0) == 1;
+    return (state % 2) == 1;
 }
 
 boo.registerEvent('up', function() { this.posY -= 10; });
