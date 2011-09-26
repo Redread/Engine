@@ -34,22 +34,32 @@ rd.server = function() {
                     transport = JSON.parse(transport);
 
                     //Getting the event sent
-                    if (transport.type === 'keypressed') {
-                        for (var id in that.objects) {
-                            var obj = that.objects[id];
-                            if (obj.player === socket.id) {
-                                obj.triggerEvent(transport.name);
+                    switch(transport.type) {
+                        case 'keypressed':
+                            for (var id in that.objects) {
+                                var obj = that.objects[id];
+                                if (obj.player === socket.id) {
+                                    obj.triggerEvent(transport.name);
+                                }
                             }
-                        }
-                    }
+                            break;
 
-                    if (transport.type === 'wallHit') {
-                        var obj = that.objects[transport.id];
-                        obj.wallsHit = transport.walls;
-                        obj.posY = obj.posY - transport.stepBack.top;
-                        obj.posY = obj.posY - transport.stepBack.bottom;
-                        obj.posX = obj.posX - transport.stepBack.left;
-                        obj.posX = obj.posX - transport.stepBack.right;
+                        case 'wallHit':
+                            var obj = that.objects[transport.id];
+                            obj.wallsHit = transport.walls;
+                            obj.posY = obj.posY - transport.stepBack.top;
+                            obj.posY = obj.posY - transport.stepBack.bottom;
+                            obj.posX = obj.posX - transport.stepBack.left;
+                            obj.posX = obj.posX - transport.stepBack.right;
+                            break;
+
+                        case 'objHit':
+                            var obj = that.objects[transport.id];
+                            obj.hit(transport.hit);
+                            break;
+
+                        default:
+                            break;
                     }
 
                     that.onMessage();
@@ -71,6 +81,11 @@ rd.server = function() {
                 //Main server loop
                 setInterval(function() {
                     if (that.playerCounter === that.configs.players) {
+                        for (var key in that.objects) {
+                            var obj = that.objects[key];
+                            obj.tick();
+                        };
+
                         socket.broadcast.send(JSON.stringify({
                             type: "gameUpdate",
                             objects: that.objects

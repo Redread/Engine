@@ -21,8 +21,13 @@
                 [50, 0, 20, 93, 5, 1]
             ], 'resources/pong.png');
 
+            var ballSprite = Redread.sprite([
+                [0, 93, 20, 20, 5, 1]
+            ], 'resources/pong.png');
+
             var leftPad = Redread.gameObject(sprite1, 'lefty');
             var rightPad = Redread.gameObject(sprite2, 'righty');
+            var ball = Redread.gameObject(ballSprite, 'ball');
 
 			// Redread.Input.bindDirectional("WASD");
 			var keysObj = {};
@@ -30,7 +35,7 @@
 			keysObj[Redread.KEYS.S] = 'down';
 			Redread.Input.bindKeys(keysObj);
 
-            Redread.addObjects(leftPad, rightPad);
+            Redread.addObjects(leftPad, rightPad, ball);
             Redread.start(function() {});
         };
     </script>
