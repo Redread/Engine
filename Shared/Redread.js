@@ -84,6 +84,8 @@
             }
         },
 
+        //Object collision detection
+        //based on: http://www.gamedev.net/page/resources/_/reference/programming/game-programming/collision-detection/collision-detection-r735
         checkObjectHit: function(obj) {
             for (var key in this.objects) {
                 var testObj = this.objects[key];
@@ -94,20 +96,43 @@
                 var testW = testObj.sprite.states[testObj.currentState][2];
                 var testH = testObj.sprite.states[testObj.currentState][3];
                 var testCoord = {
-                    topLeft:     [ testObj.posX        , testObj.posY ],
-                    topRight:    [ testObj.posX + testW, testObj.posY ],
-                    bottomLeft:  [ testObj.posX        , testObj.posY + testH ],
-                    bottomRight: [ testObj.posX + testW, testObj.posY + testH ]
+                    left: testObj.posX,
+                    right: testObj.posX + testW,
+                    top: testObj.posY,
+                    bottom: testObj.posY + testH
                 };
+
                 var width = obj.sprite.states[obj.currentState][2];
                 var height = obj.sprite.states[obj.currentState][3];
                 var coord = {
-                    topLeft:     [ obj.posX        , obj.posY ],
-                    topRight:    [ obj.posX + width, obj.posY ],
-                    bottomLeft:  [ obj.posX        , obj.posY + height ],
-                    bottomRight: [ obj.posX + width, obj.posY + height ]
+                    left: obj.posX,
+                    right: obj.posX + width,
+                    top: obj.posY,
+                    bottom: obj.posY + height
                 };
+    
+                var isHitting = false;
+                if (testCoord.bottom < coord.top) {
+                    continue;
+                }
 
+                if (testCoord.top > coord.bottom) {
+                    continue;
+                }
+
+                if (testCoord.right < coord.left) {
+                    continue;
+                }
+
+                if (testCoord.left > coord.right) {
+                    continue;
+                }
+
+                this.send(JSON.stringify({
+                    type: 'objHit',
+                    id: obj.id,
+                    hit: testObj.id
+                }));
             };
         },
 

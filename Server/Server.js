@@ -103,7 +103,7 @@ rd.server = function() {
                             name: "waiting"
                         }));
                     }
-                }, 1000 / 60);
+                }, 1000 / 30);
             });
         },
 

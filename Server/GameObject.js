@@ -40,9 +40,9 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         this.hitList[obj.id] = func;
     },
 
-    this.hit = function(obj) {;
-        if (this.hitList[obj.id] !== undefined) {
-            this.hitList[obj.id].apply(this);
+    this.hit = function(objId) {;
+        if (this.hitList[objId] !== undefined) {
+            this.hitList[objId].apply(this);
         }
     },
 
