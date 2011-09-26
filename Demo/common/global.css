@@ -1,0 +1,23 @@
+
+body {
+    background: transparent url(bg.jpg) top center repeat;
+}
+
+canvas {
+    margin: 0 auto;
+    display: block;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.4);
+
+}
+
+@font-face {
+    font-family: 'CabinSketch';
+    src: url('cabinsketch-bold-webfont.eot');
+    src: url('cabinsketch-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('cabinsketch-bold-webfont.woff') format('woff'),
+         url('cabinsketch-bold-webfont.ttf') format('truetype'),
+         url('cabinsketch-bold-webfont.svg#CabinSketchBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
