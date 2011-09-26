@@ -50,7 +50,7 @@ Redread.Input = {
     },
     send: function(eventString){
         if (eventString) {
-            console.info("send ",eventString);
+            // console.info("send ",eventString);
             Redread.send(JSON.stringify({type: 'keypressed', name: eventString}));
         }
     },
