@@ -7,6 +7,7 @@
         drawContext: null,
 
         objects: {},
+        localObjects: {},
         
         debug: true,
 
@@ -33,12 +34,14 @@
                         case "gameUpdate":
                             var objects = message.objects;
 
+                                // console.log(objects);
                             // Iterating over each object
                             for (var id in objects) {
-
                                 // Passing every property from the remote objects to the local objects
                                 for (var i in objects[id]) {
-                                    that.objects[id][i] = objects[id][i];
+                                    if (that.objects[id] !== undefined) {
+                                        that.objects[id][i] = objects[id][i];
+                                    }
                                 };
 
                             }        
@@ -68,7 +71,10 @@
                 this.canvasEl.height
             );
 
-            for (var id in this.localObjects.concat(this.objects)) {
+            // var objects = this.mergeObjects(this.localObjects, this.objects);
+            // console.log(objects);
+            // for (var id in objects) {
+            for (var id in this.objects) {
                 var obj = this.objects[id];
                 obj.draw();
                 this.checkWallHit(obj);
@@ -160,7 +166,7 @@
 
         addObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
-            for (var i in objects.length) {
+            for (var i in objects) {
                 this.objects[objects[i].id] = objects[i];
             };
         },
@@ -169,6 +175,12 @@
             for (var i in objects.length) {
                 this.localObjects[objects[i].id] = objects[i];
             };
+            console.log('Local objects: ', objects, this.localObjects);
+        },
+        
+        mergeObjects: function(obj1, obj2){
+            for (var attr in obj2) { obj1[attr] = obj2[attr]; }
+            return obj1;
         }
     };
 
