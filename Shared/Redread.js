@@ -6,8 +6,8 @@
 
         drawContext: null,
 
-        objects: {},
-        localObjects: {},
+        objects: [],
+        localObjects: [],
         
         debug: true,
 
