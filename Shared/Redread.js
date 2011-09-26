@@ -9,6 +9,7 @@
         objects: {},
         
         debug: true,
+
         log: function(){
             this.debug && console.log.call(arguments);
         },
@@ -51,7 +52,6 @@
         },
         
         send:function(obj){
-            console.log(obj);
             this.socket.send(obj);
         },
         
@@ -67,11 +67,63 @@
             for (var id in this.objects) {
                 var obj = this.objects[id];
                 obj.draw();
+                this.checkWallHit(obj);
             }
 
             if (func !== undefined) {
                 func.apply(this, [message]);
             }
+        },
+
+        checkWallHit: function(obj) {
+            var width = obj.sprite.states[obj.currentState][2];
+            var height = obj.sprite.states[obj.currentState][3];
+            var boundaries = {
+                top: 0,
+                left: 0,
+                right: this.canvasEl.width,
+                bottom: this.canvasEl.height
+            };
+            var walls = {
+                top: false,
+                bottom: false,
+                left: false,
+                right: false
+            };
+            //used for when the step goes after the wall
+            var stepBack = {
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0
+            };
+
+            if (obj.posY <= boundaries.top) {
+                walls.top = true;
+                stepBack.top = obj.posY - boundaries.top;
+            }
+
+            if (obj.posY + height >= boundaries.bottom) {
+                walls.bottom = true;
+                stepBack.bottom = (obj.posY + height) - boundaries.bottom;
+            }
+
+            if (obj.posX <= boundaries.left) {
+                walls.left = true;
+                stepBack.left = obj.posX - boundaries.left;
+            }
+
+            if (obj.posX + width >= boundaries.right) {
+                walls.right = true;
+                stepBack.right = (obj.posX + width) - boundaries.right;
+            }
+
+            this.send(JSON.stringify({
+                type: 'wallHit',
+                id: obj.id,
+                walls: walls,
+                stepBack: stepBack
+            }));
         },
 
         addObjects: function() {

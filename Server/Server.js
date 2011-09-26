@@ -42,6 +42,16 @@ rd.server = function() {
                             }
                         }
                     }
+
+                    if (transport.type === 'wallHit') {
+                        var obj = that.objects[transport.id];
+                        obj.wallsHit = transport.walls;
+                        obj.posY = obj.posY - transport.stepBack.top;
+                        obj.posY = obj.posY - transport.stepBack.bottom;
+                        obj.posX = obj.posX - transport.stepBack.left;
+                        obj.posX = obj.posX - transport.stepBack.right;
+                    }
+
                     that.onMessage();
                 });
 
