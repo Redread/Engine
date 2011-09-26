@@ -1,6 +1,6 @@
 Redread.gameObject = function(sprite, id) {
     // Name of the object
-    this.id = id,
+    this.id = id;
 
     // Sprite's state
     this.currentState = 0;
@@ -12,7 +12,11 @@ Redread.gameObject = function(sprite, id) {
     this.posY = 0;
 
     // Sprite object
-    this.sprite = sprite || null;
+    this.sprite = sprite;
+
+    this.width = sprite.states[this.currentState][2];
+
+    this.height = sprite.states[this.currentState][3];
 
     // Attached data
     this.data1 = {score: 0};
@@ -36,6 +40,12 @@ Redread.gameObject = function(sprite, id) {
         this.sprite.draw(this.posX, this.posY, this.currentState);
         //Chaining purposes
         return this;
+    };
+
+    this.changeState = function(state) {
+        this.currentState = state;
+        this.width = sprite.states[this.currentState][2];
+        this.height = sprite.states[this.currentState][3];
     };
 };
 

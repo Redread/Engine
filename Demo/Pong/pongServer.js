@@ -4,21 +4,48 @@ var server = require('../../Server/Server.js').Redread.server();
 var leftPad = new Redread.gameObject(10, 100, 'lefty', true);
 var rightPad = new Redread.gameObject(470, 100, 'righty', true);
 var ball = new Redread.gameObject(250, 150, 'ball');
-ball.direction = (Math.random() > 0.5) ? 1 : -1;
+ball.direction.horizontal = (Math.random() > 0.5) ? 1 : -1;
+var ballSpeed = 1;
 ball.onTick = function() {
-    if (this.direction === 1) {
-        this.posX += 1;
-    } else if (this.direction === -1) {
-        this.posX -= 1;
+    if (this.direction.horizontal === 1) {
+        this.posX += ballSpeed;
+    } else if (this.direction.horizontal === -1) {
+        this.posX -= ballSpeed;
+    }
+
+    if (this.wallsHit.top || this.wallsHit.bottom) {
+        this.direction.vertical *= -1; //reverse
+    }
+
+    if (this.direction.vertical === 1) {
+        this.posY -= ballSpeed;
+    } else if (this.direction.vertical === -1) {
+        this.posY += ballSpeed;
     }
 };
 
 ball.onObjectHit(leftPad, function() {
-    this.direction = 1;
+    this.direction.horizontal = 1;
+
+    var leftCenter = (leftPad.posY + leftPad.height) / 2;
+    var ballCenter = (ball.posY + ball.height) / 2;
+    if (ballCenter > leftCenter) {
+        this.direction.vertical = -1;
+    } else {
+        this.direction.vertical = 1;
+    }
 });
 
 ball.onObjectHit(rightPad, function() {
-    this.direction = -1;
+    this.direction.horizontal  = -1;
+
+    var rightCenter = (rightPad.posY + rightPad.height) / 2;
+    var ballCenter = (ball.posY + ball.height) / 2;
+    if (ballCenter > rightCenter) {
+        this.direction.vertical = -1;
+    } else {
+        this.direction.vertical = 1;
+    }
 });
 
 leftPad.registerEvent('up', function() {

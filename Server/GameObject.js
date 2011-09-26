@@ -12,6 +12,12 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     // Vertical position of the object in canvas
     this.posY = posY || 0;
 
+    // Height of the object, informed by client
+    this.height = 0;
+
+    // Width of the object, informed by client
+    this.width = 0;
+
     // Defines if current object is a player
     this.isPlayer = isPlayer || false;
 
@@ -24,8 +30,13 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     // Sprite's state
     this.currentState = 0;
 
-    // -1: left, 0: stoped; 1: right
-    this.direction = 0; 
+    // -1: left, 1: right
+    // -1: bottom, 1: top
+    // 0: stopped
+    this.direction = {
+        horizontal: 0,
+        vertical: 0
+    }; 
 
     // Bound events
     this.events = {};
@@ -64,8 +75,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     this.triggerEvent = function(event) {;
         if (this.events[event] !== undefined) {
             this.events[event].apply(this);
-        }
-        else {
+        } else {
             this.console.warn("Error = event " + event + " not defined.");;
         }
 
