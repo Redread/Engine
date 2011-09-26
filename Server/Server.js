@@ -38,12 +38,10 @@ rd.server = function() {
                 
                 socket.on('message', function(transport) {
                     transport = JSON.parse(transport);
-                    console.log('transport', transport);
 
                     //Getting the event sent
                     switch(transport.type) {
                         case 'keypressed':
-                            console.log('keypressed', transport.name);
                             for (var id in that.objects) {
                                 var obj = that.objects[id];
                                 if (obj.player === socket.id) {
@@ -116,7 +114,7 @@ rd.server = function() {
                         name: "waiting"
                     }));
                 }
-            }, 1000 / 10);
+            }, 1000 / 30);
         },
 
         addObjects: function() {
