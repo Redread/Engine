@@ -20,28 +20,32 @@
         },
 
         start: function(func) {
-            this.socket = io.connect('http://' + document.location.hostname + ':' + this.wsPort);
+            this.socket = io.connect('ws://' + document.location.hostname + ':' + this.wsPort);
             var that = this;
+
             this.socket.on('connect', function() {
+                
+                // When client receives a message from server
                 that.socket.on('message', function(message) {
                     message = JSON.parse(message);
                     switch (message.type) {
+                        
                         case "gameUpdate":
                             var objects = message.objects;
+
+                            // Iterating over each object
                             for (var id in objects) {
-                                that.objects[id].posX = objects[id].posX;
-                                that.objects[id].posY = objects[id].posY;
-                                if(objects[id].currentState !== undefined){
-                                    that.objects[id].currentState = objects[id].currentState;
-                                }
+
+                                // Passing every property from the remote objects to the local objects
+                                for (var i in objects[id]) {
+                                    that.objects[id][i] = objects[id][i];
+                                };
+
                             }        
                             break;
+                            
                         case "gameState":
                             if (message.name === "waiting") {
-                                /*var message = Redread.gameObjectText("Waiting for Players.", {
-                                    position: 'center'
-                                });
-                                that.addObjects(message);*/
                                 console.log("Waiting for players");
                             }
                             break;
@@ -51,7 +55,7 @@
             });
         },
         
-        send:function(obj){
+        send: function(obj){
             this.socket.send(obj);
         },
         

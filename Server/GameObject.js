@@ -4,13 +4,28 @@
 var Redread = require('../Shared/Redread.js').Redread;
 Redread.gameObject = function(posX, posY, id, isPlayer) {
     return {
+        // Name of the object
         id: id,
+        
+        // Horizontal position of the object in canvas
         posX: posX || 0,
+
+        // Vertical position of the object in canvas
         posY: posY || 0,
-        isPlayer: false || isPlayer,
+
+        // Defines if current object is a player
+        isPlayer: isPlayer || false,
+
+        // Which walls does the object has to hit on
         wallsHit: {},
+
+        // Player's connection ID
         player: 0,
+
+        // Sprite's state
         currentState: 0,
+
+        // Bound events
         events: {},
 
         onObjectHit: function(obj, func) {
