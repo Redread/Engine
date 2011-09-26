@@ -22,17 +22,30 @@
 
             var boo = Redread.gameObject(booSprite, 'boo');
 
-            // Adding objects to the main list of game objects
+			// Criando objeto label com configurações de forma, cor e posição
+			var scoreLabel = Redread.gameObjectText('abc', {
+				stroke: '0',
+				color: 'green',
+				font: '40pt Rosewood Std',
+				// font: '40pt Arial',
+				position: 'top right', // top right
+			});
+
+            // Adicionando objeto à lista de objetos remotos
             Redread.addObjects(boo);
 
-            // Binds keyboard events on object
+			// Adicionando objeto à lista de objetos locais
+			Redread.addLocalObjects(scoreLabel);
+
+            // Associa eventos de teclado para teclas direcionais
             Redread.Input.bindDirectional('ARROWS,WASD');
 
+			// Associa evento customizado
             var keyObject = {};
             keyObject[Redread.KEYS.SPACE] = 'boo!';
             Redread.Input.bindKeys(keyObject);
 
-            // Bootstraps the Loop
+
             Redread.start(function() {});
 
         };

@@ -2,6 +2,7 @@ var Redread = require('../../Server/GameObject.js').Redread;
 var server = require('../../Server/Server.js').Redread.server();
 
 var boo = Redread.gameObject(10, 10, 'boo', true);
+boo.data.score = 0;
 
 function isBoo (state) {
     return (state % 2) == 1;
@@ -26,20 +27,14 @@ boo.registerEvent('boo!', function() {
         this.currentState--;
     }
     else{
+        this.data.score += 5;
         this.currentState++;
     }
 });
 
- boo.registerEvent('ZERO', function() { this.changeState(0); });
-  boo.registerEvent('ONE', function() { this.changeState(1); });
-  boo.registerEvent('TWO', function() { this.changeState(2); });
-boo.registerEvent('THREE', function() { this.changeState(3); });
-
-
-
 
 server.addObjects(boo);
-server.addConfiguration({players: 1});
+server.config({players: 1});
 
 
 server.init();
