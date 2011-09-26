@@ -1,13 +1,23 @@
 Redread.gameObject = function(sprite, id) {
     return {
-        currentState: 0,
-        sprite: sprite || null,
-        posX: 0,
-        posY: 0,
+        // Name of the object
         id: id,
-        //Chaining purposes
+
+        // Sprite's state
+        currentState: 0,
+
+        // Horizontal position of the object in canvas
+        posX: posX || 0,
+
+        // Vertical position of the object in canvas
+        posY: posY || 0,
+
+        // Sprite object
+        sprite: sprite || null,
+
         draw: function() {
             this.sprite.draw(this.posX, this.posY, this.currentState);
+            //Chaining purposes
             return this;
         }
     };

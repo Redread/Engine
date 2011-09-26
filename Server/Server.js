@@ -96,7 +96,7 @@ rd.server = function() {
                             name: "waiting"
                         }));
                     }
-                }, 1000 / 12);
+                }, 1000 / 60);
             });
         },
 
@@ -107,7 +107,7 @@ rd.server = function() {
             };
         },
 
-		addConfiguration: function(configuration) {
+		config: function(configuration) {
 			this.configs = configuration;
 		}
     };
