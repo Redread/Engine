@@ -2,10 +2,14 @@ var rd = require('../Shared/Redread.js').Redread;
 
 rd.server = function() {
     return {
+        //User defined functions
         onDisconnect: function() {},
         onMessage: function() {},
+        //gameObject list
         objects: {},
+        //Game configuration
         configs: {},
+        //Players currently pariticpating
         playerCounter: 0,
 
         init: function(port) {
@@ -14,7 +18,8 @@ rd.server = function() {
             var that = this;
 
             var io = require("socket.io").listen(port);
-            io.set('log level', 2);
+            io.set('log level', 2); //Info only
+
             io.sockets.on('connection', function(socket) {
                 //Assigns a player number to player object
                 for (var id in that.objects) {
@@ -59,12 +64,14 @@ rd.server = function() {
                             break;
 
                         default:
+                            console.warn('Unknow transport received, of type: ' + transport.type);
                             break;
                     }
 
                     that.onMessage();
                 });
 
+                //Removing player
                 socket.on('disconnect', function() {
                     var disconPlayer = socket.id;
                     
@@ -96,7 +103,7 @@ rd.server = function() {
                             name: "waiting"
                         }));
                     }
-                }, 1000 / 60);
+                }, 1000 / 30);
             });
         },
 

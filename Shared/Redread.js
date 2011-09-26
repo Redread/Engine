@@ -7,6 +7,7 @@
         drawContext: null,
 
         objects: [],
+
         localObjects: [],
         
         debug: true,
@@ -15,6 +16,7 @@
             this.debug && console.log.call(arguments);
         },
 
+        //ClientSide initialization
         initClient: function(canvasId) {
             this.canvasEl = document.getElementById(canvasId);
             this.drawContext = this.canvasEl.getContext('2d');
@@ -25,16 +27,13 @@
             var that = this;
 
             this.socket.on('connect', function() {
-                
                 // When client receives a message from server
                 that.socket.on('message', function(message) {
                     message = JSON.parse(message);
                     switch (message.type) {
-                        
                         case "gameUpdate":
                             var objects = message.objects;
 
-                                // console.log(objects);
                             // Iterating over each object
                             for (var id in objects) {
                                 // Passing every property from the remote objects to the local objects
@@ -43,7 +42,6 @@
                                         that.objects[id][i] = objects[id][i];
                                     }
                                 };
-
                             }        
                             break;
                             
@@ -86,6 +84,8 @@
             }
         },
 
+        //Object collision detection
+        //based on: http://www.gamedev.net/page/resources/_/reference/programming/game-programming/collision-detection/collision-detection-r735
         checkObjectHit: function(obj) {
             for (var key in this.objects) {
                 var testObj = this.objects[key];
@@ -96,23 +96,47 @@
                 var testW = testObj.sprite.states[testObj.currentState][2];
                 var testH = testObj.sprite.states[testObj.currentState][3];
                 var testCoord = {
-                    topLeft:     [ testObj.posX        , testObj.posY ],
-                    topRight:    [ testObj.posX + testW, testObj.posY ],
-                    bottomLeft:  [ testObj.posX        , testObj.posY + testH ],
-                    bottomRight: [ testObj.posX + testW, testObj.posY + testH ]
+                    left: testObj.posX,
+                    right: testObj.posX + testW,
+                    top: testObj.posY,
+                    bottom: testObj.posY + testH
                 };
+
                 var width = obj.sprite.states[obj.currentState][2];
                 var height = obj.sprite.states[obj.currentState][3];
                 var coord = {
-                    topLeft:     [ obj.posX        , obj.posY ],
-                    topRight:    [ obj.posX + width, obj.posY ],
-                    bottomLeft:  [ obj.posX        , obj.posY + height ],
-                    bottomRight: [ obj.posX + width, obj.posY + height ]
+                    left: obj.posX,
+                    right: obj.posX + width,
+                    top: obj.posY,
+                    bottom: obj.posY + height
                 };
+    
+                var isHitting = false;
+                if (testCoord.bottom < coord.top) {
+                    continue;
+                }
 
+                if (testCoord.top > coord.bottom) {
+                    continue;
+                }
+
+                if (testCoord.right < coord.left) {
+                    continue;
+                }
+
+                if (testCoord.left > coord.right) {
+                    continue;
+                }
+
+                this.send(JSON.stringify({
+                    type: 'objHit',
+                    id: obj.id,
+                    hit: testObj.id
+                }));
             };
         },
 
+        //Wall collision detection
         checkWallHit: function(obj) {
             var width = obj.sprite.states[obj.currentState][2];
             var height = obj.sprite.states[obj.currentState][3];
@@ -128,6 +152,7 @@
                 left: false,
                 right: false
             };
+
             //used for when the step goes after the wall
             var stepBack = {
                 top: 0,
@@ -164,12 +189,15 @@
             }));
         },
 
+        //Adding objects to game
         addObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             for (var i in objects) {
                 this.objects[objects[i].id] = objects[i];
             };
         },
+
+        //Adding interface objects
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             for (var i in objects.length) {

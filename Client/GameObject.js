@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+var Redread = Redread || {};
+>>>>>>> 225ea988dc6ea56302c2cbbf44ca5d3b266bc4f0
 Redread.gameObject = function(sprite, id) {
     // Name of the object
     this.id = id,
