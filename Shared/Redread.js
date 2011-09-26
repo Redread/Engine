@@ -68,11 +68,39 @@
                 var obj = this.objects[id];
                 obj.draw();
                 this.checkWallHit(obj);
+                this.checkObjectHit(obj);
             }
 
             if (func !== undefined) {
                 func.apply(this, [message]);
             }
+        },
+
+        checkObjectHit: function(obj) {
+            for (var key in this.objects) {
+                var testObj = this.objects[key];
+                if (obj.id == testObj.id) {
+                    continue;
+                }
+
+                var testW = testObj.sprite.states[testObj.currentState][2];
+                var testH = testObj.sprite.states[testObj.currentState][3];
+                var testCoord = {
+                    topLeft:     [ testObj.posX        , testObj.posY ],
+                    topRight:    [ testObj.posX + testW, testObj.posY ],
+                    bottomLeft:  [ testObj.posX        , testObj.posY + testH ],
+                    bottomRight: [ testObj.posX + testW, testObj.posY + testH ]
+                };
+                var width = obj.sprite.states[obj.currentState][2];
+                var height = obj.sprite.states[obj.currentState][3];
+                var coord = {
+                    topLeft:     [ obj.posX        , obj.posY ],
+                    topRight:    [ obj.posX + width, obj.posY ],
+                    bottomLeft:  [ obj.posX        , obj.posY + height ],
+                    bottomRight: [ obj.posX + width, obj.posY + height ]
+                };
+
+            };
         },
 
         checkWallHit: function(obj) {

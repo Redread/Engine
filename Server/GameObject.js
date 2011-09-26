@@ -7,15 +7,31 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         id: id,
         posX: posX || 0,
         posY: posY || 0,
+        direction: 0, //0 - stoped, 1 - right, -1 - left
         isPlayer: false || isPlayer,
         wallsHit: {},
-        player: 0,
+        player: 0, //Player id == socket.id
         currentState: 0,
         events: {},
+        onTick: undefined,
+        hitList: {},
 
         onObjectHit: function(obj, func) {
+            this.hitList[obj.id] = func;
         },
-        
+
+        hit: function(obj) {
+            if (this.hitList[obj.id] !== undefined) {
+                this.hitList[obj.id].apply(this);
+            }
+        },
+
+        tick: function() {
+            if (this.onTick !== undefined) {
+                this.onTick.apply(this);
+            }
+        },
+
         registerEvent: function(event, func) {
             this.events[event] = func;
             return this;
