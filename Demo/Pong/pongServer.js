@@ -42,7 +42,7 @@ rightPad.registerEvent('down', function() {
     }
 });
 server.addObjects(leftPad, rightPad, ball);
-server.addConfiguration({
+server.config({
     "players": 2
 });
 server.init();
