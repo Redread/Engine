@@ -11,6 +11,7 @@ rd.server = function() {
         configs: {},
         //Players currently pariticpating
         playerCounter: 0,
+        interval: null,
 
         init: function(port) {
             port = rd.wsPort || port;
@@ -95,27 +96,27 @@ rd.server = function() {
                     }
                     that.onDisconnect();
                 });
-
-                //Main server loop
-                setInterval(function() {
-                    if (that.playerCounter === that.configs.players) {
-                        for (var key in that.objects) {
-                            var obj = that.objects[key];
-                            obj.tick();
-                        };
-
-                        socket.broadcast.send(JSON.stringify({
-                            type: "gameUpdate",
-                            objects: that.objects
-                        }));
-                    } else {
-                        socket.broadcast.send(JSON.stringify({
-                            type: "gameState",
-                            name: "waiting"
-                        }));
-                    }
-                }, 1000 / 30);
             });
+
+            //Main server loop
+            this.interval = setInterval(function() {
+                if (that.playerCounter === that.configs.players) {
+                    for (var key in that.objects) {
+                        var obj = that.objects[key];
+                        obj.tick();
+                    };
+
+                    io.sockets.send(JSON.stringify({
+                        type: "gameUpdate",
+                        objects: that.objects
+                    }));
+                } else {
+                    io.sockets.send(JSON.stringify({
+                        type: "gameState",
+                        name: "waiting"
+                    }));
+                }
+            }, 1000 / 10);
         },
 
         addObjects: function() {
