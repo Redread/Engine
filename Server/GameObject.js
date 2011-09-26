@@ -30,6 +30,9 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
 
         // Bound events
         events: {},
+        
+        // Attached data
+        data: {},
 
         onTick: undefined,
         hitList: {},
