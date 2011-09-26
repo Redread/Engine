@@ -47,7 +47,7 @@
                             
                         case "gameState":
                             if (message.name === "waiting") {
-                                console.log("Waiting for players");
+                                console.info("Waiting for players");
                             }
                             break;
                     }
@@ -203,7 +203,7 @@
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             this.localObjects = this.localObjects.concat(objects);
-            console.log('Local objects: ', objects, this.localObjects);
+            // console.log('Local objects: ', objects, this.localObjects);
         },
         
         mergeObjects: function(obj1, obj2){
