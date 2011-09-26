@@ -68,7 +68,7 @@
                 this.canvasEl.height
             );
 
-            for (var id in this.objects) {
+            for (var id in this.localObjects.concat(this.objects)) {
                 var obj = this.objects[id];
                 obj.draw();
                 this.checkWallHit(obj);
@@ -160,8 +160,14 @@
 
         addObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
-            for (var i = 0; i < objects.length; i++) {
+            for (var i in objects.length) {
                 this.objects[objects[i].id] = objects[i];
+            };
+        },
+        addLocalObjects: function() {
+            var objects = Array.prototype.slice.call(arguments); //toArray
+            for (var i in objects.length) {
+                this.localObjects[objects[i].id] = objects[i];
             };
         }
     };
