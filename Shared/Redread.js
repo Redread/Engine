@@ -68,15 +68,17 @@
                 this.canvasEl.width, 
                 this.canvasEl.height
             );
-
-            // var objects = this.mergeObjects(this.localObjects, this.objects);
-            // console.log(objects);
-            // for (var id in objects) {
+            
+            // console.log(this.localObjects);
+            for (var id in this.localObjects) {
+                var obj = this.localObjects[id];
+                obj.draw();
+            }
             for (var id in this.objects) {
                 var obj = this.objects[id];
                 obj.draw();
-                this.checkWallHit(obj);
-                this.checkObjectHit(obj);
+                // this.checkWallHit(obj);
+                // this.checkObjectHit(obj);
             }
 
             if (func !== undefined) {
@@ -200,9 +202,7 @@
         //Adding interface objects
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
-            for (var i in objects.length) {
-                this.localObjects[objects[i].id] = objects[i];
-            };
+            this.localObjects = this.localObjects.concat(objects);
             console.log('Local objects: ', objects, this.localObjects);
         },
         
