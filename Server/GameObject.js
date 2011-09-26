@@ -75,8 +75,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     this.triggerEvent = function(event) {;
         if (this.events[event] !== undefined) {
             this.events[event].apply(this);
-        }
-        else {
+        } else {
             this.console.warn("Error = event " + event + " not defined.");;
         }
 

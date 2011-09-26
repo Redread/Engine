@@ -79,11 +79,12 @@
                 var obj = this.localObjects[id];
                 obj.draw();
             }
+
             for (var id in this.objects) {
                 var obj = this.objects[id];
                 obj.draw();
-                // this.checkWallHit(obj);
-                // this.checkObjectHit(obj);
+                this.checkWallHit(obj);
+                this.checkObjectHit(obj);
             }
 
             if (func !== undefined) {
