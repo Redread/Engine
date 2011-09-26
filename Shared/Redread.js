@@ -27,6 +27,11 @@
             var that = this;
 
             this.socket.on('connect', function() {
+                that.socket.send(JSON.stringify({
+                    type: 'objInfo',
+                    objects: that.objects
+                }));
+
                 // When client receives a message from server
                 that.socket.on('message', function(message) {
                     message = JSON.parse(message);

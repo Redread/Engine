@@ -63,6 +63,15 @@ rd.server = function() {
                             obj.hit(transport.hit);
                             break;
 
+                        case 'objInfo':
+                            var clientObjects = transport.objects;
+                            for (var key in clientObjects) {
+                                var client = clientObjects[key];
+                                that.objects[client.id].width = client.width;
+                                that.objects[client.id].height = client.height;
+                            };
+                            break;
+
                         default:
                             console.warn('Unknow transport received, of type: ' + transport.type);
                             break;
