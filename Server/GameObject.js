@@ -24,7 +24,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
     // Sprite's state
     this.currentState = 0;
 
-    this.// -1: left, 0 = stoped; 1: right
+    // -1: left, 0 = stoped; 1: right
     this.direction = 0; 
 
     // Bound events
@@ -66,7 +66,7 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
             this.events[event].apply(this);
         }
         else {
-            this.        console.warn("Error = event " + event + " not defined.");;
+            this.console.warn("Error = event " + event + " not defined.");;
         }
         return this;
     },
