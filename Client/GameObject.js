@@ -17,6 +17,16 @@ Redread.gameObject = function(sprite, id) {
     // Attached data
     this.data = {};
 
+    // Function retrieves data from data property
+    this.getData = function(key){
+        var data = this.data[key];
+        if (data === undefined){
+            console.warn('Data for key ' + key + ' is undefined.');
+            return null;
+        }
+        return data;
+    };
+    
     this.draw = function() {
         this.sprite.draw(this.posX, this.posY, this.currentState);
         //Chaining purposes
@@ -25,6 +35,9 @@ Redread.gameObject = function(sprite, id) {
 };
 
 Redread.gameObjectText = function(text, options) {
+    if (text == null) {
+        text = '';
+    }
     this.draw = function() {
         Redread.Drawing.text(text, options);
         //Chaining purposes
