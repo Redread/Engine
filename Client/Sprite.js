@@ -11,7 +11,6 @@
 Redread.sprite = function(states, imagePath) {
     var image = new Image();
     image.src = imagePath;
-    
     return {
         states: states,    
         ctx: Redread.drawContext,

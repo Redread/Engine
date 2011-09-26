@@ -51,7 +51,7 @@
         },
         
         send:function(obj){
-            console.log(obj);
+            // console.log(obj);
             this.socket.send(obj);
         },
         
