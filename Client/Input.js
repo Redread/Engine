@@ -68,7 +68,7 @@ Redread.Input = {
     delegate: function(){
         var that = this;
         if(this.keyList){
-            console.log(that.keyList);
+            Redread.debug && console.log('Keylist', that.keyList);
             window.onkeydown = function(evt) {
                 var eventString = that.keyList[evt.which] || null;
                 if (eventString) {

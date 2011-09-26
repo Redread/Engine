@@ -7,13 +7,16 @@ Redread.gameObject = function(sprite, id) {
         currentState: 0,
 
         // Horizontal position of the object in canvas
-        posX: posX || 0,
+        posX: 0,
 
         // Vertical position of the object in canvas
-        posY: posY || 0,
+        posY: 0,
 
         // Sprite object
         sprite: sprite || null,
+
+        // Attached data
+        data: {},
 
         draw: function() {
             this.sprite.draw(this.posX, this.posY, this.currentState);
