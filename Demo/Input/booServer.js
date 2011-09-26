@@ -1,7 +1,7 @@
 var Redread = require('../../Server/GameObject.js').Redread;
 var server = require('../../Server/Server.js').Redread.server();
 
-var boo = new Redread.gameObject(10, 10, 'boo', true);
+var boo = new Redread.gameObject(320, 120, 'boo', true);
 boo.data.score = 0;
 
 function isBoo (state) {

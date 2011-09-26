@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Input Demo</title>
+	<link rel="stylesheet" href="../common/global.css" type="text/css">
     <script src="http://localhost:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Client/Input.js"></script>
@@ -21,14 +22,14 @@
             ], 'boo.png?1');
 
             var boo = new Redread.gameObject(booSprite, 'boo');
-
+			
 			// Criando objeto label com configurações de forma, cor e posição
-			var scoreLabel = Redread.gameObjectText('abc', {
+			var scoreLabel = new Redread.gameObjectText("Exemplo de input", {
 				stroke: '0',
-				color: 'green',
-				font: '40pt Rosewood Std',
-				// font: '40pt Arial',
-				position: 'top right', // top right
+				color: 'white',
+				// font: '40pt Rosewood Std',
+				font: '40pt CabinSketch',
+				position: 'center', // top right
 			});
 
             // Adicionando objeto à lista de objetos remotos
@@ -52,6 +53,6 @@
     </script>
 </head>
 <body>
-    <canvas id="game" width="1500" height="1000" style="border: 1px solid #ddd;"></canvas>
+    <canvas id="game" width="800" height="600"></canvas>
 </body>
 </html>
