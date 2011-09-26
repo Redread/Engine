@@ -4,10 +4,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Score Demo</title>
     <script src="http://localhost:9090/socket.io/socket.io.js"></script>
-    <script src="../Shared/Redread.js"></script>
-    <script src="../Client/GameObject.js"></script>
-    <script src="../Client/Drawing.js"></script>
-    <script src="../Shared/Score.js"></script>
+    <script src="../../Shared/Redread.js"></script>
+    <script src="../../Client/GameObject.js"></script>
+    <script src="../../Client/Drawing.js"></script>
+    <script src="../../Shared/Score.js"></script>
     <script>
         window.onload = function() {
             Redread.initClient('game');
@@ -23,9 +23,9 @@
 			var scoreLabel = Redread.gameObjectText(score.toString, {
 				stroke: '0',
 				color: 'green',
-				// font: '40pt Rosewood Std',
-				font: '40pt Arial',
-				position: 'center', // top right
+				font: '40pt Rosewood Std',
+				// font: '40pt Arial',
+				position: 'top right', // top right
 			});
 			
 			// Adding objects to the main list of game objects
