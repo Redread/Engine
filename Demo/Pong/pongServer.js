@@ -1,9 +1,9 @@
 var Redread = require('../../Server/GameObject.js').Redread;
 var server = require('../../Server/Server.js').Redread.server();
 
-var leftPad = Redread.gameObject(10, 100, 'lefty', true);
-var rightPad = Redread.gameObject(470, 100, 'righty', true);
-var ball = Redread.gameObject(250, 150, 'ball');
+var leftPad = new Redread.gameObject(10, 100, 'lefty', true);
+var rightPad = new Redread.gameObject(470, 100, 'righty', true);
+var ball = new Redread.gameObject(250, 150, 'ball');
 ball.direction = (Math.random() > 0.5) ? 1 : -1;
 ball.onTick = function() {
     if (this.direction === 1) {
