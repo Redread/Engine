@@ -24,7 +24,11 @@
             var leftPad = Redread.gameObject(sprite1, 'lefty');
             var rightPad = Redread.gameObject(sprite2, 'righty');
 
-			Redread.Input.bindDirectional("WASD");
+			// Redread.Input.bindDirectional("WASD");
+			var keysObj = {};
+			keysObj[Redread.KEYS.W] = 'up';
+			keysObj[Redread.KEYS.S] = 'down';
+			Redread.Input.bindKeys(keysObj);
 
             Redread.addObjects(leftPad, rightPad);
             Redread.start(function() {});

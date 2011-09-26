@@ -14,7 +14,6 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         events: {},
 
         onObjectHit: function(obj, func) {
-            //Exeute func
         },
         
         registerEvent: function(event, func) {
@@ -23,7 +22,12 @@ Redread.gameObject = function(posX, posY, id, isPlayer) {
         },
 
         triggerEvent: function(event) {
-            this.events[event].apply(this);
+            if (this.events[event] !== undefined) {
+                this.events[event].apply(this);
+            }
+            else {
+                console.warn("Error: event " + event + " not defined.");
+            }
             return this;
         },
 
