@@ -46,20 +46,25 @@
 			Redread.addLocalObjects(textLabel, scoreLabel);
 
             // Associa eventos de teclado para teclas direcionais
-            Redread.Input.bindDirectional('ARROWS,WASD');
+            Redread.Input.bindDirectional('ARROWS,WASD,ACCEL');
 
 			// Associa evento customizado
             var keyObject = {};
             keyObject[Redread.KEYS.SPACE] = 'boo!';
             Redread.Input.bindKeys(keyObject);
 
-
-            Redread.start(function() {});
-
+			try{
+            	Redread.start(function() {});
+			}
+			catch(e){
+				console.log(e);
+			}
         };
     </script>
 </head>
 <body>
+	<h2 id="y"></h2>
+	<h2 id="x"></h2>
     <canvas id="game" width="800" height="600"></canvas>
 </body>
 </html>
