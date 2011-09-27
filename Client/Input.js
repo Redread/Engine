@@ -28,6 +28,7 @@ Redread.KEYS = {
 };
 
 Redread.Input = {
+    MOTION_TOLERANCE: 3,
     keyList: {},
     addWasd: function(str){
         if((/WASD/).test(str)){
@@ -45,8 +46,34 @@ Redread.Input = {
             this.keyList[Redread.KEYS.RIGHT] = 'right';
         }
     },
-    isAccelerometer: function(str){
-        return (/ACCEL/).test(str);
+    addAccelerometer: function(str){
+        var that = this;
+        if((/ACCEL/).test(str)){
+            // horizontal tilt first
+        	window.ondevicemotion = function(event) {
+        	    var eventString = null;
+        		var ay = event.accelerationIncludingGravity.y;
+
+        		if (Math.abs(ay) >= that.MOTION_TOLERANCE) {
+        		    if (ay < 0) {
+        		        eventString = 'right';
+        		    }
+        		    if (ay > 0) {
+        		        eventString = 'left';
+        		    }
+        		    that.send(eventString);
+        		};
+    		};
+
+            window.onkeydown = function(evt) {
+                var eventString = that.keyList[evt.which] || null;
+                if (eventString) {
+                    that.send(eventString);
+                    evt.preventDefault();
+                };
+            };
+            
+        }
     },
     send: function(eventString){
         if (eventString) {
@@ -57,6 +84,7 @@ Redread.Input = {
     bindDirectional: function(keySet, fn){
         this.addWasd(keySet);
         this.addArrows(keySet);
+        this.addAccelerometer(keySet);
         this.delegate();
     },
     bindKeys: function(obj){
