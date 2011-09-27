@@ -1,26 +1,32 @@
 var Redread = require('../../Server/GameObject.js').Redread;
 var server = require('../../Server/Server.js').Redread.server();
 
-var mario = new Redread.gameObject(50, 50, 'mario', true);
+var mario = new Redread.gameObject(50, 350, 'mario', true);
 
-var flyTime = 2000;
-var fallTime = 2000;
-var lastTick = new Date().getTime();
+var flyTime = 15;
+var fallTime = 15;
+var lastTick = 0;
 
 mario.onTick = function() {
-    var now = (new Date().getTime());
-
     if (this.direction.vertical === 1) {
-        this.posY -= 3;
-        if (now - lastTick > flyTime) {
-            this.changeState(4);
+        this.posY -= 5;
+        if (lastTick >= flyTime) {
+            this.direction.vertical = -1;
+            this.changeState(5);
+            lastTick = 0;
+        } else {
+            lastTick++;
         }
     }
 
     if (this.direction.vertical === -1) {
-        this.posY += 3;
-        if (now - lastTick > fallTime) {
+        this.posY += 5;
+        if (lastTick >= fallTime) {
+            this.direction.vertical = 0;
             this.changeState(0);
+            lastTick = 0;
+        } else {
+            lastTick++;
         }
     }
 
@@ -30,24 +36,24 @@ mario.onTick = function() {
         this.changeState(0);
     }
 
-    lastTick = now;
     this.direction.horizontal = 0;
     this.isDucked = false;
 };
 
 mario.registerEvent('up', function() {
-    this.changeState(3);
-    this.direction.vertical = 1;
+    this.changeState(4);
+    if (this.direction.vertical == 0) {
+        this.direction.vertical = 1;
+    }
 });
 
 mario.registerEvent('down', function() {
     this.changeState(1);
-    this.direction.vertical = 0;
     this.isDucked = true;
 });
 
 mario.registerEvent('left', function() {
-    this.changeState(2);
+    this.changeState(3);
     this.posX -= 2;
     this.direction.horizontal = -1;
 });
