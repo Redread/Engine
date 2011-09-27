@@ -29,11 +29,7 @@
             var rightPad = new Redread.gameObject(sprite2, 'righty');
             var ball = new Redread.gameObject(ballSprite, 'ball');
 
-			// Redread.Input.bindDirectional("WASD");
-			var keysObj = {};
-			keysObj[Redread.KEYS.W] = 'up';
-			keysObj[Redread.KEYS.S] = 'down';
-			Redread.Input.bindKeys(keysObj);
+			Redread.Input.bindDirectional('WASD,ACCEL');
 
             Redread.addObjects(leftPad, rightPad, ball);
             Redread.start(function() {});
@@ -41,6 +37,8 @@
     </script>
 </head>
 <body>
+	<span id="x"></span>
+	<span id="y"></span>
     <canvas id="game" width=500 height=300></canvas>
 </body>
 </html>

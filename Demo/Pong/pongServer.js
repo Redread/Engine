@@ -48,26 +48,26 @@ ball.onObjectHit(rightPad, function() {
     }
 });
 
-leftPad.registerEvent('up', function() {
-    if (this.wallsHit.top === false) {
-        this.posY -= 8;
-    }
-});
-leftPad.registerEvent('down', function() {
-    if (this.wallsHit.bottom === false) {
-        this.posY += 8;
-    }
-});
-rightPad.registerEvent('up', function() { 
-    if (this.wallsHit.top === false) {
-        this.posY -= 8; 
-    }
-});
-rightPad.registerEvent('down', function() {
-    if (this.wallsHit.bottom === false) {
-        this.posY += 8;
-    }
-});
+// Função do pad subindo
+var fnUp = function() {
+    if (this.wallsHit.top === false) this.posY -= 8;
+};
+
+// Função do pad descendo
+var fnDown = function() {
+    if (this.wallsHit.bottom === false) this.posY += 8;
+};
+
+leftPad.registerEvent('up', fnUp);
+leftPad.registerEvent('down', fnDown);
+leftPad.registerEvent('left', fnUp);
+leftPad.registerEvent('right', fnDown);
+
+rightPad.registerEvent('up', fnUp);
+rightPad.registerEvent('down', fnDown);
+rightPad.registerEvent('left', fnUp);
+rightPad.registerEvent('right', fnDown);
+
 server.addObjects(leftPad, rightPad, ball);
 server.config({
     "players": 2
