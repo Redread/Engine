@@ -6,7 +6,7 @@
 
         drawContext: null,
 
-        objects: [],
+        objects: {},
 
         localObjects: [],
         
@@ -83,9 +83,9 @@
                 var obj = this.objects[id];
                 if (message.name !== 'waiting') {
                     obj.draw();
+                    this.checkWallHit(obj);
+                    this.checkObjectHit(obj);
                 }
-                this.checkWallHit(obj);
-                this.checkObjectHit(obj);
             }
 
             if (func !== undefined) {
@@ -211,7 +211,6 @@
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             this.localObjects = this.localObjects.concat(objects);
-            // console.log('Local objects: ', objects, this.localObjects);
         },
         
         mergeObjects: function(obj1, obj2){

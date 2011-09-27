@@ -46,8 +46,9 @@ ball.onTick = function() {
 ball.onObjectHit(leftPad, function() {
     this.direction.horizontal = 1;
 
-    var leftCenter = (leftPad.posY + leftPad.height) / 2;
-    var ballCenter = (ball.posY + ball.height) / 2;
+    var leftCenter = leftPad.posY + (leftPad.height / 2);
+    var ballCenter = ball.posY + (ball.height / 2);
+
     if (ballCenter > leftCenter) {
         this.direction.vertical = -1;
     } else {
@@ -58,8 +59,9 @@ ball.onObjectHit(leftPad, function() {
 ball.onObjectHit(rightPad, function() {
     this.direction.horizontal  = -1;
 
-    var rightCenter = (rightPad.posY + rightPad.height) / 2;
-    var ballCenter = (ball.posY + ball.height) / 2;
+    var rightCenter = rightPad.posY + (rightPad.height / 2);
+    var ballCenter = ball.posY + (ball.height / 2);
+
     if (ballCenter > rightCenter) {
         this.direction.vertical = -1;
     } else {
