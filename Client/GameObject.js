@@ -46,8 +46,8 @@ Redread.gameObject = function(sprite, id) {
 
     this.changeState = function(state) {
         this.currentState = state;
-        this.width = sprite.states[this.currentState][2];
-        this.height = sprite.states[this.currentState][3];
+        this.width = this.sprite.states[this.currentState][2];
+        this.height = this.sprite.states[this.currentState][3];
     };
 };
 

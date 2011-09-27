@@ -15,6 +15,8 @@ Redread.sprite = function(states, imagePath) {
         states: states,    
         ctx: Redread.drawContext,
         currentFrame: 0,
+        lastState: null,
+        lastChange: (new Date()).getTime(),
 
         /**
          * Drawing function
@@ -31,14 +33,20 @@ Redread.sprite = function(states, imagePath) {
             var spriteH = drawingState[3];
             var spriteSpace = drawingState[4];
             var stateQuantity = drawingState[5];
+            var miliToWait = drawingState[6] || 0;
             
-            if (stateQuantity > 0) {
-                spriteX = (this.currentFrame * (spriteW + spriteSpace)) + spriteX;
-                this.currentFrame++;
-                if (this.currentFrame == stateQuantity) {
-                    this.currentFrame = 0;
-                }
+            if (stateQuantity <= 1) {
+                this.currentFrame = 0;
             }
+
+            var now = new Date().getTime();
+            if (stateQuantity > 1 && now > (this.lastChange + miliToWait)) {
+                this.lastChange = now;
+                this.currentFrame++;
+                this.currentFrame %= stateQuantity;
+            }
+
+            spriteX = (this.currentFrame * (spriteW + spriteSpace)) + spriteX;
 
             this.ctx.drawImage(
                 image, spriteX, spriteY, spriteW, spriteH, posX, posY, spriteW, spriteH
