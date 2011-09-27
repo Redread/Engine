@@ -49,30 +49,15 @@ Redread.Input = {
     addAccelerometer: function(str){
         var that = this;
         if((/ACCEL/).test(str)){
-            // horizontal tilt first
         	window.ondevicemotion = function(event) {
         	    var eventString = null;
         		var ay = event.accelerationIncludingGravity.y;
-
         		if (Math.abs(ay) >= that.MOTION_TOLERANCE) {
-        		    if (ay < 0) {
-        		        eventString = 'right';
-        		    }
-        		    if (ay > 0) {
-        		        eventString = 'left';
-        		    }
+        		    if (ay < 0) eventString = 'right';
+        		    if (ay > 0) eventString = 'left';
         		    that.send(eventString);
         		};
     		};
-
-            window.onkeydown = function(evt) {
-                var eventString = that.keyList[evt.which] || null;
-                if (eventString) {
-                    that.send(eventString);
-                    evt.preventDefault();
-                };
-            };
-            
         }
     },
     send: function(eventString){
@@ -82,18 +67,28 @@ Redread.Input = {
         }
     },
     bindDirectional: function(keySet, fn){
+
+        // Binding WASD keys, if set
         this.addWasd(keySet);
+
+        // Binding Arrow keys, if set
         this.addArrows(keySet);
-        this.addAccelerometer(keySet);
-        this.delegate();
+
+        // Delegates all key events
+        this.delegateKeyEvent();
+
+        // Binding Accelerometer event, if available and set
+        if(window.DeviceMotionEvent !== undefined) 
+            this.addAccelerometer(keySet);
+
     },
     bindKeys: function(obj){
         for(var i in obj){
             this.keyList[i] = obj[i];
         }
-        this.delegate();
+        this.delegateKeyEvent();
     },
-    delegate: function(){
+    delegateKeyEvent: function(){
         var that = this;
         if(this.keyList){
             Redread.debug && console.log('Keylist', that.keyList);
