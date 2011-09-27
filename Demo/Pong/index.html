@@ -7,6 +7,7 @@
     <script src="http://localhost:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Client/GameObject.js"></script>
+    <script src="../../Client/Drawing.js"></script>
     <script src="../../Client/Sprite.js"></script>
     <script src="../../Client/Input.js"></script>
     <script>
@@ -29,13 +30,27 @@
             var rightPad = new Redread.gameObject(sprite2, 'righty');
             var ball = new Redread.gameObject(ballSprite, 'ball');
 
-			// Redread.Input.bindDirectional("WASD");
+			var scoreLeft = new Redread.gameObjectText(leftPad.getScore, {
+				stroke: '0',
+				color: 'white',
+				font: '30pt CabinSketch',
+				position: 'top left'
+			});
+
+			var scoreRight = new Redread.gameObjectText(rightPad.getScore, {
+				stroke: '0',
+				color: 'white',
+				font: '30pt CabinSketch',
+				position: 'top right'
+			});
+
 			var keysObj = {};
 			keysObj[Redread.KEYS.W] = 'up';
 			keysObj[Redread.KEYS.S] = 'down';
 			Redread.Input.bindKeys(keysObj);
 
             Redread.addObjects(leftPad, rightPad, ball);
+            Redread.addLocalObjects(scoreLeft, scoreRight);
             Redread.start(function() {});
         };
     </script>
