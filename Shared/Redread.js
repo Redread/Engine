@@ -74,7 +74,6 @@
                 this.canvasEl.height
             );
             
-            // console.log(this.localObjects);
             for (var id in this.localObjects) {
                 var obj = this.localObjects[id];
                 obj.draw();
@@ -82,7 +81,9 @@
 
             for (var id in this.objects) {
                 var obj = this.objects[id];
-                obj.draw();
+                if (message.name !== 'waiting') {
+                    obj.draw();
+                }
                 this.checkWallHit(obj);
                 this.checkObjectHit(obj);
             }
