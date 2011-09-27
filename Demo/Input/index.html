@@ -17,26 +17,33 @@
             var booSprite = Redread.sprite([
                 [0, 0, 139, 139, 0, 1],
                 [139, 0, 145, 139, 0, 1],
-                [284, 0, 139, 139, 0, 1],
-                [424, 0, 145, 139, 0, 1]
-            ], 'boo.png?1');
+                [284, 0, 145, 139, 0, 1],
+                [430, 0, 145, 139, 0, 1]
+            ], 'boo.png?2');
 
             var boo = new Redread.gameObject(booSprite, 'boo');
 			
 			// Criando objeto label com configurações de forma, cor e posição
-			var scoreLabel = new Redread.gameObjectText("Exemplo de input", {
+			var textLabel = new Redread.gameObjectText("Exemplo de input", {
 				stroke: '0',
 				color: 'white',
-				// font: '40pt Rosewood Std',
 				font: '40pt CabinSketch',
-				position: 'center', // top right
+				position: 'center'
+			});
+
+			// Criando objeto label com configurações de forma, cor e posição
+			var scoreLabel = new Redread.gameObjectText(boo.getScore, {
+				stroke: '0',
+				color: 'white',
+				font: '40pt CabinSketch',
+				position: 'top left'
 			});
 
             // Adicionando objeto à lista de objetos remotos
             Redread.addObjects(boo);
 
 			// Adicionando objeto à lista de objetos locais
-			Redread.addLocalObjects(scoreLabel);
+			Redread.addLocalObjects(textLabel, scoreLabel);
 
             // Associa eventos de teclado para teclas direcionais
             Redread.Input.bindDirectional('ARROWS,WASD');
