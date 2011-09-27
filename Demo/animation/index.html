@@ -7,6 +7,7 @@
     <script src="http://localhost:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Client/GameObject.js"></script>
+    <script src="../../Client/Drawing.js"></script>
     <script src="../../Client/Sprite.js"></script>
     <script src="../../Client/Input.js"></script>
     <script>
@@ -14,11 +15,12 @@
             Redread.initClient('game');
 
             var mario = Redread.sprite([
-                [0 , 0 , 15, 28, 1, 1], //stand
-                [17, 0, 16, 28, 1, 1], //down
-                [0 , 29, 16, 27, 1, 2, 200], //walking
-                [0 , 58, 16, 31, 1, 1], //up
-                [17, 59, 16, 29, 1, 1] //down
+                [0 , 0  , 45, 85, 0, 1], //stand
+                [52, 0  , 48, 85, 0, 1], //down
+                [0 , 88 , 48, 85, 4, 2, 200], //walking right
+                [0 , 270, 48, 85, 4, 2, 200], //walking left
+                [0 , 177, 48, 93, 0, 1], //up
+                [52, 178, 48, 92, 0, 1] //down
             ], 'resources/sheet.gif');
 
             var mario = new Redread.gameObject(mario, 'mario');
@@ -26,11 +28,20 @@
 
             Redread.Input.bindDirectional('ARROWS,WASD');
 
+			var textLabel = new Redread.gameObjectText("Animação com Sprites", {
+				stroke: '0',
+				color: 'white',
+				font: '40pt CabinSketch',
+				position: 'center'
+			});
+
+			Redread.addLocalObjects(textLabel);
+
             Redread.start(function() {});
         };
     </script>
 </head>
 <body>
-    <canvas id="game" width=300 height=100></canvas>
+    <canvas id="game" width="800" height="600"></canvas>
 </body>
 </html>

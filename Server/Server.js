@@ -58,10 +58,11 @@ rd.server = function() {
                         case 'wallHit':
                             var obj = that.objects[transport.id];
                             obj.wallsHit = transport.walls;
+                            /*
                             obj.posY = obj.posY - transport.stepBack.top;
                             obj.posY = obj.posY - transport.stepBack.bottom;
                             obj.posX = obj.posX - transport.stepBack.left;
-                            obj.posX = obj.posX - transport.stepBack.right;
+                            obj.posX = obj.posX - transport.stepBack.right;*/
                             break;
 
                         case 'objHit':

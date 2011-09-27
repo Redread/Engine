@@ -6,7 +6,7 @@
 
         drawContext: null,
 
-        objects: [],
+        objects: {},
 
         localObjects: [],
         
@@ -83,9 +83,9 @@
                 var obj = this.objects[id];
                 if (message.name !== 'waiting') {
                     obj.draw();
+                    this.checkWallHit(obj);
+                    this.checkObjectHit(obj);
                 }
-                this.checkWallHit(obj);
-                this.checkObjectHit(obj);
             }
 
             if (func !== undefined) {
@@ -163,38 +163,39 @@
             };
 
             //used for when the step goes after the wall
+            /* TODO: Make it better, still quite buggy
             var stepBack = {
                 top: 0,
                 bottom: 0,
                 left: 0,
                 right: 0
-            };
+            };*/
 
             if (obj.posY <= boundaries.top) {
                 walls.top = true;
-                stepBack.top = obj.posY - boundaries.top;
+                //stepBack.top = obj.posY - boundaries.top;
             }
 
             if (obj.posY + height >= boundaries.bottom) {
                 walls.bottom = true;
-                stepBack.bottom = (obj.posY + height) - boundaries.bottom;
+                //stepBack.bottom = (obj.posY + height) - boundaries.bottom;
             }
 
             if (obj.posX <= boundaries.left) {
                 walls.left = true;
-                stepBack.left = obj.posX - boundaries.left;
+                //stepBack.left = obj.posX - boundaries.left;
             }
 
             if (obj.posX + width >= boundaries.right) {
                 walls.right = true;
-                stepBack.right = (obj.posX + width) - boundaries.right;
+                //stepBack.right = (obj.posX + width) - boundaries.right;
             }
 
             this.send(JSON.stringify({
                 type: 'wallHit',
                 id: obj.id,
-                walls: walls,
-                stepBack: stepBack
+                walls: walls//,
+                //stepBack: stepBack
             }));
         },
 
@@ -210,7 +211,6 @@
         addLocalObjects: function() {
             var objects = Array.prototype.slice.call(arguments); //toArray
             this.localObjects = this.localObjects.concat(objects);
-            // console.log('Local objects: ', objects, this.localObjects);
         },
         
         mergeObjects: function(obj1, obj2){

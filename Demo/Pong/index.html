@@ -4,9 +4,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Pong</title>
 	<link rel="stylesheet" href="../common/global.css" type="text/css">
-    <script src="http://localhost:9090/socket.io/socket.io.js"></script>
+    <script src="http://10.1.1.12:9090/socket.io/socket.io.js"></script>
     <script src="../../Shared/Redread.js"></script>
     <script src="../../Client/GameObject.js"></script>
+    <script src="../../Client/Drawing.js"></script>
     <script src="../../Client/Sprite.js"></script>
     <script src="../../Client/Input.js"></script>
     <script>
@@ -29,9 +30,25 @@
             var rightPad = new Redread.gameObject(sprite2, 'righty');
             var ball = new Redread.gameObject(ballSprite, 'ball');
 
-			Redread.Input.bindDirectional('WASD,ACCEL');
+			var scoreLeft = new Redread.gameObjectText(leftPad.getScore, {
+				stroke: '0',
+				color: 'white',
+				font: '30pt CabinSketch',
+				position: 'top left'
+			});
+
+			var scoreRight = new Redread.gameObjectText(rightPad.getScore, {
+				stroke: '0',
+				color: 'white',
+				font: '30pt CabinSketch',
+				position: 'top right'
+			});
 
             Redread.addObjects(leftPad, rightPad, ball);
+            Redread.addLocalObjects(scoreLeft, scoreRight);
+
+			Redread.Input.bindDirectional('WASD,ACCEL');
+
             Redread.start(function() {});
         };
     </script>
